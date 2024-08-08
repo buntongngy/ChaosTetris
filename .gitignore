@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Tetris/Sound/Background.mp3
+/Tetris/Sound/Clear.mp3
+/Tetris/Sound/Game_Over.mp3
+/Tetris/Sound/Rotate.mp3
