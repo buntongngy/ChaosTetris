@@ -39,7 +39,7 @@ Block Game::GetRandomBlock()
 
 std::vector<Block> Game::GetAllBlocks()
 {
-	return { IBlock(), JBlock(), SBlock(), TBlock(),LBlock(), ZBlock(), OBlock(), UBlock(), FBlock(), DotBlock()};
+	return { IBlock(), JBlock(), SBlock(), TBlock(),LBlock(), ZBlock(), OBlock(), UBlock(), FBlock(), DotBlock(), CommaBlock()};
 }
 
 
@@ -113,6 +113,10 @@ void Game::MoveBlockLeft()
 		{
 			currentBlock.Move(0, 1);
 		}
+		else {
+			lockTime = 0;
+			moveCounter++;
+		}
 	} 
 }
 
@@ -126,6 +130,10 @@ void Game::MoveBlockRight()
 			currentBlock.Move(0, -1);
 
 		}
+		else {
+			lockTime = 0;
+			moveCounter++;
+		}
 	}
 }
 
@@ -136,7 +144,24 @@ void Game::MoveBlockDown() {
 		if (isOutofBound() || BlockFits() == false)
 		{
 			currentBlock.Move(-1, 0);
-			LockBlock();
+			if (IsKeyDown(KEY_DOWN))
+			{
+				LockBlock();
+			}
+			else {
+				lockTime += GetFrameTime();
+				if (lockTime >= lockDelay || moveCounter >= moveLimit)
+				{
+					LockBlock();
+					lockTime = 0;
+					moveCounter = 0;
+				}
+			}
+			
+		}
+		else {
+			lockTime = 0;
+			moveCounter = 0;
 		}
 	}
 }
@@ -152,11 +177,12 @@ void Game::RotateBlock()
 		}
 		else
 		{
+			lockTime = 0;
+			moveCounter++;
 			PlaySound(rotateSound);
 		}
 	}
 }
-
 
 bool Game::isOutofBound()
 {

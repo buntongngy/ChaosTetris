@@ -17,6 +17,10 @@ public:
 	void Reset();
 
 private:
+	double lockDelay = 0.05;
+	double lockTime = 0;
+	int moveCounter = 0;
+	int moveLimit = 5;
 	Block GetRandomBlock();
 	std::vector<Block> blocks;
 	Grid grid;
@@ -24,7 +28,6 @@ private:
 	void MoveBlockRight();
 	void RotateBlock();
 	void LockBlock();
-
 	void updateScore(int lineClear, int movePoint);
 	bool BlockFits();
 	Block currentBlock;

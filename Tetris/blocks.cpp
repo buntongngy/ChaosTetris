@@ -132,4 +132,14 @@ public:
 	}
 };
 
-
+class CommaBlock : public Block
+{
+public:
+	CommaBlock()
+	{
+		id = 11;
+		cells[0] = { Position(0,1), Position(1,1) };
+		cells[1] = { Position(0,0), Position(0,1) };
+		Move(0, 4);
+	}
+};
