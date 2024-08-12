@@ -3,7 +3,7 @@
 #include "color.h"
 #include <iostream>
 
-enum GameState {MENU, GAME, GAME_OVER};
+enum GameState { MENU, GAME, GAME_OVER };
 
 double lastUpdateTime = 0;
 
@@ -18,7 +18,7 @@ bool EventTriggered(double interval)
 	return false;
 }
 
-int main() {	
+int main() {
 
 	InitWindow(500, 620, "raylib tetis");
 	SetTargetFPS(60);
@@ -29,8 +29,8 @@ int main() {
 	GameState gameState = MENU;
 
 	while (WindowShouldClose() == false) {
-		
-		
+
+
 
 		if (gameState == GAME)
 		{
@@ -42,9 +42,9 @@ int main() {
 				game.MoveBlockDown();
 			}
 		}
-		
-	
-		
+
+
+
 
 		//Draw Interface
 		BeginDrawing();
@@ -71,13 +71,15 @@ int main() {
 		else if (gameState == GAME)
 		{
 			DrawTextEx(font, "Score", { 365, 15 }, 38, 2, WHITE);
-			DrawTextEx(font, "Next", { 370, 175 }, 38, 2, WHITE);
+			DrawTextEx(font, "Next", { 370, 125 }, 38, 2, WHITE);
+			DrawTextEx(font, "Hold", { 370, 375 }, 38, 2, WHITE);
 			if (game.gameOver)
 			{
 				gameState = GAME_OVER;
 			}
 
 			DrawRectangleRounded({ 320,55,170, 60 }, 0.3, 6, lightBlue);
+			
 
 			char scoreText[10];
 			sprintf_s(scoreText, "%d", game.score);
@@ -85,14 +87,30 @@ int main() {
 
 
 			DrawTextEx(font, scoreText, { 320 + (170 - textSize.x) / 2, 65 }, 38, 2, WHITE);
-			DrawRectangleRounded({ 320,215,170, 180 }, 0.3, 6, lightBlue);
+			DrawRectangleRounded({ 320,175,170, 180 }, 0.3, 6, lightBlue);
+			DrawRectangleRounded({ 320, 415, 170,180 }, 0.3, 6, lightBlue);
+
+			if (game.heldBlock)
+			{
+
+				game.holdBlock.Draw(275 , 400); 
+			}
+
 			game.Draw();
+
+		
 		}
 		else if (gameState == GAME_OVER)
 		{
-			DrawTextEx(font, "Game Over", { 120, 200 }, 64, 2, WHITE);
-			DrawTextEx(font, "Press Enter to restart", { 30, 300 }, 38, 2, WHITE);
-			DrawTextEx(font, "Press Esc to Exit", { 80, 400 }, 32, 2, WHITE);
+
+			char scoreText[50];
+			sprintf_s(scoreText, "Score   %d", game.score);
+
+
+			DrawTextEx(font, "Game Over", { 100, 200 }, 64, 2, WHITE);
+			DrawTextEx(font, scoreText, { 150, 275 }, 38, 2, WHITE);
+			DrawTextEx(font, "Press Enter to restart", { 30, 350 }, 38, 2, WHITE);
+			DrawTextEx(font, "Press Esc to Exit", { 110, 400 }, 32, 2, WHITE);
 		}
 		
 		EndDrawing();

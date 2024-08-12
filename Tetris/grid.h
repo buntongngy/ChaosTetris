@@ -14,12 +14,13 @@ public:
     bool isCellEmpty(int row, int cols);
     int ClearFullRow();
     int grid[20][10];
+    int cellSize;
 
 private:
    
     int numRows;
     int numCols;
-    int cellSize;
+   
     std::vector<Color> colors;
     bool isRowFull(int row);
     void clearRow(int row);

@@ -57,3 +57,8 @@ void Block::undo_Rotate()
 		rotationState = cells.size() - 1;
 	}
 }
+
+void Block::heldRotate()
+{
+	rotationState = 0;
+}

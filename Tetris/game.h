@@ -8,31 +8,46 @@ public:
 	Game();
 	~Game();
 	int score;
-	std::vector<Block> GetAllBlocks();
+
 	void Draw();
 	void HandleInput();
+	void HoldBlock();
 	void MoveBlockDown();
-	bool gameOver;
-	Music music;
 	void Reset();
+
+	bool gameOver;
+	bool heldBlock;
+	bool canHold;
+
+	std::vector<Block> GetAllBlocks();
+	Block holdBlock;
+
+	Music music;
 
 private:
 	double lockDelay = 0.05;
 	double lockTime = 0;
 	int moveCounter = 0;
 	int moveLimit = 5;
-	Block GetRandomBlock();
-	std::vector<Block> blocks;
+
 	Grid grid;
+
 	void MoveBlockLeft();
 	void MoveBlockRight();
 	void RotateBlock();
 	void LockBlock();
 	void updateScore(int lineClear, int movePoint);
+
+	bool isOutofBound();
 	bool BlockFits();
+
+	std::vector<Block> blocks;
+
+	Block GetRandomBlock();
 	Block currentBlock;
 	Block nextBlock;
-	bool isOutofBound();
+	
+
 	Sound rotateSound;
 	Sound clearSound;
 	Sound gameOverSound;

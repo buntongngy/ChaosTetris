@@ -1,14 +1,20 @@
 #include "game.h"
 #include <random>
 
+
+
 Game::Game()
 {
+	Block holdBlock;
 	score = 0;
 	grid = Grid();
 	blocks = GetAllBlocks();
 	currentBlock = GetRandomBlock();
 	nextBlock = GetRandomBlock();
+	holdBlock = Block();
+	heldBlock = false;
 	gameOver = false;
+	canHold = true;
 	InitAudioDevice();
 	music = LoadMusicStream("Sound/Background.mp3");
 	PlayMusicStream(music);
@@ -31,6 +37,7 @@ Block Game::GetRandomBlock()
 	{
 		blocks = GetAllBlocks();
 	}
+	canHold = true;
 	int randomIndex = rand() % blocks.size();
 	Block block = blocks[randomIndex];
 	blocks.erase(blocks.begin() + randomIndex);
@@ -50,22 +57,28 @@ void Game::Draw()
 	currentBlock.Draw(11,11);
 	switch (nextBlock.id)
 	{
-	case 3:
-		nextBlock.Draw(255, 280);
-		break;
+		case 3:
+			nextBlock.Draw(255, 280);
+			break;
 
 		case 4:
 			nextBlock.Draw(255,290);
 			break;
 		case 8:
 			nextBlock.Draw(265, 270);
-				break;
+			break;
 		case 9:
 			nextBlock.Draw(265, 230);
 			break;
+		case 10:
+			nextBlock.Draw(240,295);
+			break;
+		case 11:
+			nextBlock.Draw(240,280);
+			break;
 		
 		default:
-			nextBlock.Draw(255, 270);
+			nextBlock.Draw(250, 250);
 			break;
 	}
 }
@@ -98,7 +111,53 @@ void Game::HandleInput()
 		case KEY_UP:
 		RotateBlock();
 		break;
+	case KEY_SPACE:
+		HoldBlock();
+		break;
 		
+	}
+	
+}
+
+void Game::HoldBlock()
+{
+	
+	if (!gameOver && canHold)
+	{
+		if (heldBlock)
+		{
+			
+			
+				Block temp = currentBlock;
+				currentBlock = holdBlock;
+				holdBlock = temp;
+
+				currentBlock.rowOffSet = 0;
+				currentBlock.colOffSet = 3;
+
+				holdBlock.heldRotate();
+
+				canHold = false;
+			
+			
+		}
+		else if (!gameOver && !heldBlock)
+		{
+
+			holdBlock = currentBlock;
+			currentBlock = GetRandomBlock();
+
+			holdBlock.heldRotate();
+			currentBlock.rowOffSet = 0;
+			currentBlock.colOffSet = 3;
+			
+			heldBlock = true;
+			canHold = false;
+		}
+
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 3; 
+		PlaySound(rotateSound);
 	}
 	
 }
@@ -247,6 +306,10 @@ void Game::LockBlock()
 		gameOver = true;
 		PlaySound(gameOverSound);
 		StopMusicStream(music);
+
+		holdBlock = Block();
+		heldBlock = false;
+		canHold = true;
 	}
 
 	nextBlock = GetRandomBlock();
@@ -261,11 +324,16 @@ void Game::LockBlock()
 
 void Game::Reset()
 {
-
+	
 	grid.Initialize();
 	blocks = GetAllBlocks();
 	currentBlock = GetRandomBlock();
 	nextBlock = GetRandomBlock();
+
+	holdBlock = Block();
+	heldBlock = false;
+	canHold = true;
+	
 	score = 0;
 	StopMusicStream(music);
 }
