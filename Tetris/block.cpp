@@ -9,9 +9,13 @@ Block::Block()
 	colOffSet = 0;
 }
 
-
-void Block:: Draw(int xOffSet, int yOffSet)
+//Draw the block falling
+void Block:: Draw(int xOffSet, int yOffSet, bool applyDefaultOffSet = true)
 {
+	if (applyDefaultOffSet)
+	{
+		xOffSet = 220; // Apply the default offset for the main block
+	}
 	std::vector<Position> tiles = GetCellPosition();
 	for (Position item : tiles)
 	{

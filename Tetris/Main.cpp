@@ -20,7 +20,7 @@ bool EventTriggered(double interval)
 
 int main() {
 
-	InitWindow(500, 620, "raylib tetis");
+	InitWindow(800, 620, "raylib tetis");
 	SetTargetFPS(60);
 
 	Font font = LoadFontEx("Font/TetrisFont.ttf", 64, 0, 0);
@@ -52,48 +52,64 @@ int main() {
 
 		if (gameState == MENU)
 		{
-			DrawTextEx(font, "Tetris", { 150, 100 }, 64, 2, WHITE);
+			DrawTextEx(font, "Tetris", { 285, 100 }, 64, 2, WHITE);
 
-			Vector2 enterTextPosition = { 60, 300 };
-			Vector2 escTextPosition = { 80, 400 };
+			Vector2 enterTextPosition = { 225, 300 };
+			Vector2 escTextPosition = { 250, 400 };
 
 			Vector2 enterTextSize = MeasureTextEx(font, "Press Enter to Start", 32, 2);
 			Vector2 escTextSize = MeasureTextEx(font, "Press Esc to Exit", 32, 2);
 
-			// Draw rectangles behind the text
+			
 			DrawRectangleRounded({ enterTextPosition.x - 10, enterTextPosition.y - 10, enterTextSize.x + 20, enterTextSize.y + 20 }, 0.3, 6, lightBlue);
 			DrawRectangleRounded({ escTextPosition.x - 10, escTextPosition.y - 10, escTextSize.x + 20, escTextSize.y + 20 }, 0.3, 6, lightBlue);
 
-			// Draw the text
+			
 			DrawTextEx(font, "Press Enter to Start", enterTextPosition, 32, 2, WHITE);
 			DrawTextEx(font, "Press Esc to Exit", escTextPosition, 32, 2, WHITE);
 		}
 		else if (gameState == GAME)
 		{
-			DrawTextEx(font, "Score", { 365, 15 }, 38, 2, WHITE);
-			DrawTextEx(font, "Next", { 370, 125 }, 38, 2, WHITE);
-			DrawTextEx(font, "Hold", { 370, 375 }, 38, 2, WHITE);
+			DrawTextEx(font, "Score", { 565, 15 }, 38, 2, WHITE);
+			DrawTextEx(font, "Next", { 570, 125 }, 38, 2, WHITE);
+			DrawTextEx(font, "Hold", { 15, 15 }, 38, 2, WHITE);
 			if (game.gameOver)
 			{
 				gameState = GAME_OVER;
 			}
 
-			DrawRectangleRounded({ 320,55,170, 60 }, 0.3, 6, lightBlue);
-			
+			DrawRectangleRounded({ 570,55,170, 60 }, 0.3, 6, lightBlue);
 
 			char scoreText[10];
 			sprintf_s(scoreText, "%d", game.score);
 			Vector2 textSize = MeasureTextEx(font, scoreText, 38, 2);
 
 
-			DrawTextEx(font, scoreText, { 320 + (170 - textSize.x) / 2, 65 }, 38, 2, WHITE);
-			DrawRectangleRounded({ 320,175,170, 180 }, 0.3, 6, lightBlue);
-			DrawRectangleRounded({ 320, 415, 170,180 }, 0.3, 6, lightBlue);
+			DrawTextEx(font, scoreText, { 600, 65 }, 38, 2, WHITE);
+		
+			DrawRectangleRounded({ 570,175,170, 180 }, 0.3, 6, lightBlue);
+			DrawRectangleRounded({ 15, 65, 170,180 }, 0.3, 6, lightBlue);
 
 			if (game.heldBlock)
 			{
 
-				game.holdBlock.Draw(275 , 400); 
+				
+				switch (game.holdBlock.id)
+				{
+				case 3:
+					game.holdBlock.Draw(-20, 85, false);
+					break;
+				case 4:
+					game.holdBlock.Draw(-20, 65, false);
+					break;
+				case 9:
+					game.holdBlock.Draw(-20, 65, false);
+					break;
+				
+				default:
+					game.holdBlock.Draw(-30, 65, false);
+					break;
+				}
 			}
 
 			game.Draw();
@@ -107,10 +123,10 @@ int main() {
 			sprintf_s(scoreText, "Score   %d", game.score);
 
 
-			DrawTextEx(font, "Game Over", { 100, 200 }, 64, 2, WHITE);
-			DrawTextEx(font, scoreText, { 150, 275 }, 38, 2, WHITE);
-			DrawTextEx(font, "Press Enter to restart", { 30, 350 }, 38, 2, WHITE);
-			DrawTextEx(font, "Press Esc to Exit", { 110, 400 }, 32, 2, WHITE);
+			DrawTextEx(font, "Game Over", { 250, 200 }, 64, 2, WHITE);
+			DrawTextEx(font, scoreText, { 265, 275 }, 38, 2, WHITE);
+			DrawTextEx(font, "Press Enter to restart", { 190, 350 }, 38, 2, WHITE);
+			DrawTextEx(font, "Press Esc to Exit", { 250, 400 }, 32, 2, WHITE);
 		}
 		
 		EndDrawing();

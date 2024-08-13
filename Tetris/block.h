@@ -9,7 +9,7 @@ class Block
 {
 public:
 	Block();
-	void Draw(int xOffSet, int yOffSet);
+	void Draw(int xOffSet, int yOffSet, bool applyDefaultOffSet);
 	void Move(int row, int cols);
 	void Rotate();
 	void undo_Rotate();

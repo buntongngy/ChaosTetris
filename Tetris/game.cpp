@@ -54,34 +54,37 @@ std::vector<Block> Game::GetAllBlocks()
 void Game::Draw()
 {
 	grid.Draw();
-	currentBlock.Draw(11,11);
+	currentBlock.Draw(11, 11, true);  
+
+	
 	switch (nextBlock.id)
 	{
-		case 3:
-			nextBlock.Draw(255, 280);
-			break;
+	case 3:
+		nextBlock.Draw(510, 240, false);
+		break;
 
-		case 4:
-			nextBlock.Draw(255,290);
-			break;
-		case 8:
-			nextBlock.Draw(265, 270);
-			break;
-		case 9:
-			nextBlock.Draw(265, 230);
-			break;
-		case 10:
-			nextBlock.Draw(240,295);
-			break;
-		case 11:
-			nextBlock.Draw(240,280);
-			break;
-		
-		default:
-			nextBlock.Draw(250, 250);
-			break;
+	case 4:
+		nextBlock.Draw(510, 230, false);
+		break;
+	case 8:
+		nextBlock.Draw(520, 230, false);
+		break;
+	case 9:
+		nextBlock.Draw(510, 210, false);
+		break;
+	case 10:
+		nextBlock.Draw(495, 245, false);
+		break;
+	case 11:
+		nextBlock.Draw(500, 230, false);
+		break;
+
+	default:
+		nextBlock.Draw(525, 230, false);
+		break;
 	}
 }
+
 
 //Method that handle the user input from the keyboard
 void Game::HandleInput()
@@ -143,9 +146,9 @@ void Game::HoldBlock()
 		}
 		else if (!gameOver && !heldBlock)
 		{
-
 			holdBlock = currentBlock;
-			currentBlock = GetRandomBlock();
+			currentBlock = nextBlock; 
+			nextBlock = GetRandomBlock();
 
 			holdBlock.heldRotate();
 			currentBlock.rowOffSet = 0;
@@ -155,8 +158,40 @@ void Game::HoldBlock()
 			canHold = false;
 		}
 
-		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3; 
+		switch (holdBlock.id)
+		{
+		case 3:
+			holdBlock.rowOffSet = 1;
+			holdBlock.colOffSet = 2;
+			break;
+
+		case 4:
+			holdBlock.rowOffSet = 2;
+			holdBlock.colOffSet = 3;
+			break;
+		case 8:
+			holdBlock.rowOffSet = 2;
+			holdBlock.colOffSet = 3;
+			break;
+		case 9:
+			holdBlock.rowOffSet = 1;
+			holdBlock.colOffSet = 2;
+			break;
+		case 10:
+			holdBlock.rowOffSet = 3;
+			holdBlock.colOffSet = 3;
+			break;
+		case 11:
+			holdBlock.rowOffSet = 2;
+			holdBlock.colOffSet = 3;
+			break;
+
+		default:
+			holdBlock.rowOffSet = 2;
+			holdBlock.colOffSet = 3;
+			break;
+		}
+	
 		PlaySound(rotateSound);
 	}
 	
