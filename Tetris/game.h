@@ -14,19 +14,27 @@ public:
 	void HoldBlock();
 	void MoveBlockDown();
 	void Reset();
+	void SetSpeed(double speed) { this->speed = speed; }
 
 	bool gameOver;
 	bool heldBlock;
 	bool canHold;
+	bool canRotate;
+	
 
 	std::vector<Block> GetAllBlocks();
 	Block holdBlock;
 
 	Music music;
 
+	static double chaosTimer;
+
+	void UpdateChaos(Game game);
+
 private:
 	double lockDelay = 0.05;
 	double lockTime = 0;
+	double speed = 0.2;
 	int moveCounter = 0;
 	int moveLimit = 5;
 
@@ -51,5 +59,7 @@ private:
 	Sound rotateSound;
 	Sound clearSound;
 	Sound gameOverSound;
+
+	friend void UpdateChaos(Game game);
 };
 

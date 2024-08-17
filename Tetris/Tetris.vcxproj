@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blocks.cpp" />
+    <ClCompile Include="ChaosEffects.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="grid.cpp" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="block.h" />
+    <ClInclude Include="ChaosEffects.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="grid.h" />

@@ -1,12 +1,15 @@
 #include "raylib.h"
 #include "game.h"
 #include "color.h"
+#include "ChaosEffects.h"
 #include <iostream>
+
+ChaosEffects chaosEffects;
 
 enum GameState { MENU, GAME, CHAOS_MOD, GAME_OVER };
 
 double chaosTimer = 10;
-double lastUpdateTime = 0;
+double lastUpdateTime = GetTime();
 GameState gameState;
 
 bool EventTriggered(double interval)
@@ -26,7 +29,7 @@ void DrawGame(Font font, Game& game, bool isChaosMode)
     DrawTextEx(font, "Next", { 570, 125 }, 38, 2, WHITE);
     DrawTextEx(font, "Hold", { 50, 15 }, 38, 2, WHITE);
 
-  
+
     DrawRectangleRounded({ 570,55,170, 60 }, 0.3, 6, lightBlue);
 
     char scoreText[10];
@@ -60,17 +63,40 @@ void DrawGame(Font font, Game& game, bool isChaosMode)
 
     game.Draw();
 
-    if (isChaosMode)
-    {
+    if (isChaosMode) {
         DrawTextEx(font, "Chaos", { 565, 400 }, 38, 2, WHITE);
 
         char chaosTimerText[20];
         sprintf_s(chaosTimerText, "Timer %.1f", chaosTimer);
         DrawTextEx(font, chaosTimerText, { 565, 450 }, 38, 2, WHITE);
+
+        
+        chaosEffects.DrawChaosEffectUI(font);
     }
 
-  
+
 }
+
+void UpdateChaosMode(Game& game) {
+    static double chaosLastUpdateTime = GetTime();
+    double currentTime = GetTime();
+
+    
+    chaosTimer -= (currentTime - chaosLastUpdateTime);
+    chaosLastUpdateTime = currentTime;
+
+    // Apply and update chaos effects
+    chaosEffects.ApplyEffect(game);
+    chaosEffects.UpdateEffect(game);
+
+    if (chaosTimer <= 0) {
+        chaosEffects.ResetEffect(game);
+        chaosEffects.StartRandomEffect();
+        chaosTimer = 10;
+    }
+}   
+
+
 
 int main() {
 
@@ -84,7 +110,7 @@ int main() {
 
     while (WindowShouldClose() == false) {
 
-        if (gameState == GAME || gameState == CHAOS_MOD)
+        if (gameState == GAME )
         {
             UpdateMusicStream(game.music);
             game.HandleInput();
@@ -95,6 +121,21 @@ int main() {
                 game.MoveBlockDown();
             }
         }
+
+        if (gameState == CHAOS_MOD)
+        {
+             UpdateMusicStream(game.music);
+            game.HandleInput();
+
+            if (EventTriggered(0.2))
+            {
+             
+                game.MoveBlockDown();
+            }
+
+            UpdateChaosMode(game);
+        }
+
 
         // Draw Interface
         BeginDrawing();
@@ -146,7 +187,8 @@ int main() {
             DrawTextEx(font, "Game Over", { 250, 200 }, 64, 2, WHITE);
             DrawTextEx(font, scoreText, { 265, 275 }, 38, 2, WHITE);
             DrawTextEx(font, "Press Enter to restart", { 190, 350 }, 38, 2, WHITE);
-            DrawTextEx(font, "Press Esc to Exit", { 250, 400 }, 32, 2, WHITE);
+            DrawTextEx(font, "Press Shift to enter Chaos Mod", { 100,400 }, 38, 2, WHITE);
+            DrawTextEx(font, "Press Esc to Exit", { 250, 450 }, 38, 2, WHITE);
         }
 
         EndDrawing();
@@ -173,6 +215,12 @@ int main() {
                 game.Reset();
                 PlayMusicStream(game.music);
             }
+            else if (IsKeyPressed(KEY_RIGHT_SHIFT))
+            {
+                gameState = CHAOS_MOD;
+                game.Reset();
+                PlayMusicStream(game.music);
+            }
             else if (IsKeyPressed(KEY_ESCAPE)) {
                 break;
             }
@@ -181,4 +229,5 @@ int main() {
     }
 
     CloseWindow();
+    return 0;
 }

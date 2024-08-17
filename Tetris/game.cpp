@@ -1,10 +1,11 @@
 #include "game.h"
 #include <random>
-
+#include <iostream>
 
 
 Game::Game()
 {
+
 	Block holdBlock;
 	score = 0;
 	grid = Grid();
@@ -232,6 +233,7 @@ void Game::MoveBlockRight()
 }
 
 void Game::MoveBlockDown() {
+	
 	if (!gameOver)
 	{
 		currentBlock.Move(1, 0);
@@ -356,6 +358,8 @@ void Game::LockBlock()
 	}
 	
 }
+
+
 
 void Game::Reset()
 {
