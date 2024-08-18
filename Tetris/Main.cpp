@@ -96,6 +96,12 @@ void UpdateChaosMode(Game& game) {
     }
 }   
 
+void ResetChaosMod(Game& game) {
+    chaosEffects.ResetEffect(game);
+    chaosTimer = 10;
+}
+
+
 
 
 int main() {
@@ -127,7 +133,7 @@ int main() {
              UpdateMusicStream(game.music);
             game.HandleInput();
 
-            if (EventTriggered(0.2))
+            if (EventTriggered(game.GetSpeed()))
             {
              
                 game.MoveBlockDown();
@@ -181,6 +187,9 @@ int main() {
         }
         else if (gameState == GAME_OVER)
         {
+
+          
+
             char scoreText[50];
             sprintf_s(scoreText, "Score   %d", game.score);
 
@@ -219,6 +228,7 @@ int main() {
             {
                 gameState = CHAOS_MOD;
                 game.Reset();
+                ResetChaosMod(game);
                 PlayMusicStream(game.music);
             }
             else if (IsKeyPressed(KEY_ESCAPE)) {

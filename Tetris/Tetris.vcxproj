@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="block.cpp" />
     <ClCompile Include="blocks.cpp" />
+    <ClCompile Include="ChaosBlock.cpp" />
     <ClCompile Include="ChaosEffects.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="game.cpp" />

@@ -264,7 +264,7 @@ void Game::MoveBlockDown() {
 
 void Game::RotateBlock()
 {
-	if (!gameOver)
+	if (!gameOver && canRotate)
 	{
 		currentBlock.Rotate();
 		if (isOutofBound() || BlockFits() == false)

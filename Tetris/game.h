@@ -16,6 +16,10 @@ public:
 	void Reset();
 	void SetSpeed(double speed) { this->speed = speed; }
 
+	double GetSpeed() const {
+		return speed;
+	}
+
 	bool gameOver;
 	bool heldBlock;
 	bool canHold;
@@ -23,13 +27,16 @@ public:
 	
 
 	std::vector<Block> GetAllBlocks();
+	
 	Block holdBlock;
+	Block previousBlock;
+	Block GetRandomBlock();
+	Block currentBlock;
+	Block nextBlock;
 
 	Music music;
 
 	static double chaosTimer;
-
-	void UpdateChaos(Game game);
 
 private:
 	double lockDelay = 0.05;
@@ -51,15 +58,10 @@ private:
 
 	std::vector<Block> blocks;
 
-	Block GetRandomBlock();
-	Block currentBlock;
-	Block nextBlock;
 	
 
 	Sound rotateSound;
 	Sound clearSound;
 	Sound gameOverSound;
-
-	friend void UpdateChaos(Game game);
 };
 
