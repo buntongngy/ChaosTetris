@@ -7,6 +7,7 @@ class Game
 public:
 	Game();
 	~Game();
+	
 	int score;
 
 	void Draw();
@@ -15,6 +16,9 @@ public:
 	void MoveBlockDown();
 	void Reset();
 	void SetSpeed(double speed) { this->speed = speed; }
+	void SetBigBlockMod(bool isActive);
+
+
 
 	double GetSpeed() const {
 		return speed;
@@ -24,7 +28,7 @@ public:
 	bool heldBlock;
 	bool canHold;
 	bool canRotate;
-	
+	bool bigBlockEffect = false;
 
 	std::vector<Block> GetAllBlocks();
 	
@@ -58,7 +62,7 @@ private:
 
 	std::vector<Block> blocks;
 
-	
+
 
 	Sound rotateSound;
 	Sound clearSound;

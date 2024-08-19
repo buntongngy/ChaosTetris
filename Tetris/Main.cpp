@@ -1,16 +1,17 @@
 #include "raylib.h"
 #include "game.h"
 #include "color.h"
+#include "GameState.h"
 #include "ChaosEffects.h"
 #include <iostream>
 
 ChaosEffects chaosEffects;
 
-enum GameState { MENU, GAME, CHAOS_MOD, GAME_OVER };
+
 
 double chaosTimer = 10;
 double lastUpdateTime = GetTime();
-GameState gameState;
+
 
 bool EventTriggered(double interval)
 {
@@ -112,7 +113,7 @@ int main() {
     Font font = LoadFontEx("Font/tetris.ttf", 64, 0, 0);
 
     Game game = Game();
-    GameState gameState = MENU;
+    gameState = MENU;
 
     while (WindowShouldClose() == false) {
 

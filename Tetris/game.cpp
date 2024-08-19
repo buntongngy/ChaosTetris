@@ -1,11 +1,15 @@
 #include "game.h"
+#include "ChaosBlock.cpp"
+#include "ChaosEffects.h"
+#include "GameState.h"
 #include <random>
 #include <iostream>
 
 
+
 Game::Game()
 {
-
+	
 	Block holdBlock;
 	score = 0;
 	grid = Grid();
@@ -15,6 +19,7 @@ Game::Game()
 	holdBlock = Block();
 	heldBlock = false;
 	gameOver = false;
+	canRotate = true;
 	canHold = true;
 	InitAudioDevice();
 	music = LoadMusicStream("Sound/Background.mp3");
@@ -32,8 +37,15 @@ Game::~Game()
 	CloseAudioDevice();
 }
 
+
+
+
 Block Game::GetRandomBlock()
 {
+	if (bigBlockEffect) {
+		return BigOBlock(); // Always return BigOBlock when Big Block mode is active
+	}
+
 	if (blocks.empty())
 	{
 		blocks = GetAllBlocks();
@@ -45,9 +57,29 @@ Block Game::GetRandomBlock()
 	return block;
 }
 
+void Game::SetBigBlockMod(bool isActive)
+{
+	bigBlockEffect = isActive;
+}
+
 std::vector<Block> Game::GetAllBlocks()
 {
-	return { IBlock(), JBlock(), SBlock(), TBlock(),LBlock(), ZBlock(), OBlock(), UBlock(), FBlock(), DotBlock(), CommaBlock()};
+
+	if (bigBlockEffect)
+	{
+		return { BigOBlock() };
+	}
+
+	if (gameState == CHAOS_MOD)
+	{
+	
+		return { IBlock(), JBlock(), SBlock(), TBlock(),LBlock(), ZBlock(), OBlock(), UBlock(), FBlock(), DotBlock(), CommaBlock()};
+	}
+	else {
+		return { IBlock(), JBlock(), SBlock(), TBlock(),LBlock(), ZBlock(), OBlock() };
+	}
+	
+	
 }
 
 
@@ -376,3 +408,5 @@ void Game::Reset()
 	score = 0;
 	StopMusicStream(music);
 }
+
+

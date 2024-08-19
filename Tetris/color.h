@@ -12,5 +12,7 @@ extern const Color Cyan;
 extern const Color blue;
 extern const Color lightBlue;
 extern const Color darkBlue;
+extern const Color Brown;
+extern const Color Lime;
 
 std::vector<Color> GetCellColor();

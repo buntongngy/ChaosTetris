@@ -134,6 +134,7 @@
     <ClCompile Include="ChaosEffects.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="grid.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="position.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="ChaosEffects.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="grid.h" />
     <ClInclude Include="position.h" />
   </ItemGroup>

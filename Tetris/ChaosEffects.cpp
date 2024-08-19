@@ -10,17 +10,23 @@ void ChaosEffects::ApplyEffect(Game& game) {
     }
 
     switch (currentEffect) {
+    case DISABLE_HOLD:
+        game.canHold = false;
+        break;
     case SPEED_UP:
         game.SetSpeed(0.03);
         break;
-    case DISABLE_HOLD:
-        game.canHold = false;
+    case BIG_BLOCK:
+        game.SetBigBlockMod(true);
         break;
     case DISABLE_ROTATE:
         game.canRotate = false;
         break;
     case SLOW_DOWN:
         game.SetSpeed(2.0);
+        break;
+   
+       
    
     }
 }
@@ -53,6 +59,8 @@ const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
         return "Disable Rotate";
     case SLOW_DOWN:
         return "Slow Down!!";
+    case BIG_BLOCK:
+        return "BIG BLOCK";
     }
 }
 
@@ -79,14 +87,16 @@ void ChaosEffects::ResetEffect(Game& game) {
     case SPEED_UP:
         game.SetSpeed(0.2);
         break;
-    case DISABLE_HOLD:
-        game.canHold = true;
+    case BIG_BLOCK:
+        game.SetBigBlockMod(false);
         break;
     case DISABLE_ROTATE:
         game.canRotate = true;
         break;
     case SLOW_DOWN:
         game.SetSpeed(0.2);
+    case DISABLE_HOLD:
+        game.canHold = true;
     default:
         break;
     }
@@ -106,17 +116,17 @@ void ChaosEffects::ResetEffect(Game& game) {
 }
 
 void ChaosEffects::StartRandomEffect() {
-    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 4);
+    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 5);
     double duration = 5; 
-    int blockLimit = 3 + (rand() % 3); // Last for 3-5 blocks
+    
 
     switch (newEffect)
     {
     case SPEED_UP:
-        duration = 2.0;
+        duration = 1.5;
         break;
     case SLOW_DOWN:
-        duration = 10.0;
+        duration = 5.0;
     default:
         duration = 10.0;
         break;

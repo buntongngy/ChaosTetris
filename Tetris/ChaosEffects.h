@@ -9,6 +9,7 @@ enum ChaosEffectType {
     DISABLE_HOLD,
     DISABLE_ROTATE,
     SLOW_DOWN,
+    BIG_BLOCK,
 };
 
 struct ChaosEffect {
@@ -20,6 +21,7 @@ struct ChaosEffect {
 class ChaosEffects { 
 public:
     ChaosEffects();
+    ChaosEffectType currentEffect;
 
     const char* GetEffectName(ChaosEffectType effect) const;
 
@@ -35,7 +37,7 @@ public:
 
 private:
     std::vector<ChaosEffect> activeEffects;
-    ChaosEffectType currentEffect;
+    
     double effectEndTime;
     int blockCounter;
    
