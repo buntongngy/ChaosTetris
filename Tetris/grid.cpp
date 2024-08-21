@@ -6,7 +6,7 @@
 Grid::Grid() {
 
 	numRows = 20;
-	numCols = 10;
+	numCols = 12;
 	cellSize = 30;
 	Initialize();
 	colors = GetCellColor();

@@ -17,6 +17,7 @@ public:
 	void Reset();
 	void SetSpeed(double speed) { this->speed = speed; }
 	void SetBigBlockMod(bool isActive);
+	void SetLineBlock(bool isActive);
 
 
 
@@ -29,6 +30,7 @@ public:
 	bool canHold;
 	bool canRotate;
 	bool bigBlockEffect = false;
+	bool isLineBlock = false;
 
 	std::vector<Block> GetAllBlocks();
 	
@@ -45,7 +47,7 @@ public:
 private:
 	double lockDelay = 0.05;
 	double lockTime = 0;
-	double speed = 0.2;
+	double speed = 0.1;
 	int moveCounter = 0;
 	int moveLimit = 5;
 

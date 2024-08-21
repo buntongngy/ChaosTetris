@@ -43,12 +43,20 @@ Game::~Game()
 Block Game::GetRandomBlock()
 {
 	if (bigBlockEffect) {
-		std::vector<Block> bigBlocks = { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock()};
+		std::vector<Block> bigBlocks = { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock(), BigTBlock(), BigIBlock()};
 
 
 		int randoIndex = rand() % bigBlocks.size();
 		return bigBlocks[randoIndex];
 	}
+
+	if (isLineBlock)
+	{
+		std::vector<Block> lineBlock = { IBlock() };
+		int index = 0;
+		return lineBlock[index];
+	}
+
 	if (blocks.empty())
 	{
 		blocks = GetAllBlocks();
@@ -65,12 +73,22 @@ void Game::SetBigBlockMod(bool isActive)
 	bigBlockEffect = isActive;
 }
 
+void Game::SetLineBlock(bool isActive)
+{
+	isLineBlock = isActive;
+}
+
 std::vector<Block> Game::GetAllBlocks()
 {
 
 	if (bigBlockEffect)
 	{
-		return { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock()};
+		return { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock(), BigTBlock(), BigIBlock()};
+	}
+
+	if (isLineBlock)
+	{
+		return { IBlock() };
 	}
 
 	if (gameState == CHAOS_MOD)

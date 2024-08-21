@@ -89,12 +89,12 @@ public:
 		id = 14;
 		cells[0] = { Position(0,0), Position(0,1), Position(1,0), Position(1,1), Position(2,0), Position(2,1), Position(2,2),Position(2,3), 
 					Position(2,4), Position(2,5), Position(3,0), Position(3,1), Position(3,2), Position(3,3), Position(3,4), Position(3,5)};
-		cells[1] = { Position(0,4), Position(0,5), Position(1,4), Position(1,5), Position(2,4), Position(2,5), Position(3,4), Position(3,5),
-					Position(4,2), Position(4,3), Position(4,4), Position(4,5), Position(5,2), Position(5,3), Position(5,4), Position(5,5)};
+		cells[1] = { Position(0, 0), Position(0, 1), Position(0,2), Position(0,3),Position(1, 0), Position(1,1), Position(1,2), Position(1,3),
+					Position(2,0),Position(2, 1),Position(3,0),Position(3,1), Position(4,0), Position(4,1), Position(5,0), Position(5,1) };	
 		cells[2] = { Position(0,0), Position(0,1), Position(0,2),Position(0,3),Position(0,4), Position(0,5), Position(1,0), Position(1,1),
 					Position(1,2), Position(1,3),Position(1,4), Position(1,5), Position(2,4), Position(2,5), Position(3,4), Position(3,5)};
-		cells[3] = { Position(0, 0), Position(0, 1), Position(1,0), Position(1,1),Position(2, 0), Position(2,1), Position(3,0), Position(3,1),
-					Position(4,0),Position(4, 1),Position(4,2),Position(4,3), Position(5,0), Position(5,1), Position(5,2), Position(5,3)};
+		cells[3] = { Position(0,4), Position(0,5), Position(1,4), Position(1,5), Position(2,4), Position(2,5), Position(3,4), Position(3,5),
+					Position(4,2), Position(4,3), Position(4,4), Position(4,5), Position(5,2), Position(5,3), Position(5,4), Position(5,5) };
 		Move(0, 3);
 	}
 };
@@ -128,3 +128,36 @@ public:
 	}
 };
 
+class BigTBlock : public Block
+{
+public:
+	BigTBlock()
+	{
+		id = 17;
+		cells[0] = { Position(0,2), Position(0,3), Position(1,2), Position(1,3), Position(2,0), Position(2,1), Position(2,2),Position(2,3),
+					Position(2,4), Position(2,5), Position(3,0), Position(3,1), Position(3,2), Position(3,3), Position(3,4), Position(3,5) };
+		cells[1] = { Position(0,2), Position(0,3), Position(1,2), Position(1,3), Position(2,2), Position(2,3), Position(2,4),Position(2,5),
+				Position(3,2), Position(3,3), Position(3,4), Position(3,5), Position(4,2), Position(4,3), Position(5,2), Position(5,3) };
+		cells[2] = { Position(0,0), Position(0,1), Position(0,2), Position(0,3), Position(0,4), Position(0,5), Position(1,0),Position(1,1),
+				Position(1,2), Position(1,3), Position(1,4), Position(1,5), Position(2,2), Position(2,3), Position(3,2), Position(3,3) };
+		cells[3] = { Position(0,2), Position(0,3), Position(1,2), Position(1,3), Position(2,0), Position(2,1), Position(2,2),Position(2,3),
+				Position(3,0), Position(3,1), Position(3,2), Position(3,3), Position(4,2), Position(4,3), Position(5,2), Position(5,3) };
+		Move(0, 3);
+	}
+};
+
+class BigIBlock : public Block
+{
+public:
+	BigIBlock()
+	{
+		id = 18;
+		id = 16;
+		cells[0] = { Position(0,0), Position(0,1), Position(0,2), Position(0,3), Position(0,4), Position(0,5), Position(0,6),Position(0,7),
+					Position(1,0), Position(1,1), Position(1,2), Position(1,3), Position(1,4), Position(1,5), Position(1,6),Position(1,7) };
+
+		cells[1] = { Position(0,2), Position(0,3), Position(1,2), Position(1,3), Position(2,2), Position(2,3), Position(3,2), Position(3,3),
+					Position(4,2), Position(4,3), Position(5,2), Position(5,3), Position(6,2), Position(6,3), Position(7,2), Position(7,3) };
+		Move(0, 3);
+	}
+};
