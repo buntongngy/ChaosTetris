@@ -43,9 +43,12 @@ Game::~Game()
 Block Game::GetRandomBlock()
 {
 	if (bigBlockEffect) {
-		return BigOBlock(); // Always return BigOBlock when Big Block mode is active
-	}
+		std::vector<Block> bigBlocks = { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock()};
 
+
+		int randoIndex = rand() % bigBlocks.size();
+		return bigBlocks[randoIndex];
+	}
 	if (blocks.empty())
 	{
 		blocks = GetAllBlocks();
@@ -67,7 +70,7 @@ std::vector<Block> Game::GetAllBlocks()
 
 	if (bigBlockEffect)
 	{
-		return { BigOBlock() };
+		return { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock()};
 	}
 
 	if (gameState == CHAOS_MOD)

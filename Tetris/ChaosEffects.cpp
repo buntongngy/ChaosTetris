@@ -123,9 +123,11 @@ void ChaosEffects::StartRandomEffect() {
     switch (newEffect)
     {
     case SPEED_UP:
-        duration = 1.5;
+        duration = 1.0;
         break;
     case SLOW_DOWN:
+        duration = 5.0;
+    case BIG_BLOCK:
         duration = 5.0;
     default:
         duration = 10.0;

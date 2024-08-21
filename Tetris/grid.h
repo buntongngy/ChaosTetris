@@ -13,7 +13,7 @@ public:
     bool isOutOfBound(int row, int cols);
     bool isCellEmpty(int row, int cols);
     int ClearFullRow();
-    int grid[20][10];
+    int grid[40][20];
     int cellSize;
 
 private:
