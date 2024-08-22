@@ -1,55 +1,61 @@
+
 #include "ChaosEffects.h"
 #include "raylib.h"
 #include <cstdlib>
 
-ChaosEffects::ChaosEffects() : currentEffect(), effectEndTime(0) {}
+ChaosEffects::ChaosEffects() : currentEffect(), effectEndTime(0), chaosEndTime(0) {}
 
 void ChaosEffects::ApplyEffect(Game& game) {
-    if (!IsEffectActive()) {
+    if (IsChaosModeActive() && !IsEffectActive()) {
         StartRandomEffect();
     }
 
-    switch (currentEffect) {
-    case DISABLE_HOLD:
-        game.canHold = false;
-        break;
-    case SPEED_UP:
-        game.SetSpeed(0.03);
-        break;
-    case BIG_BLOCK:
-        game.SetBigBlockMod(true);
-        break;
-    case LINE_BLOCK:
-        game.SetLineBlock(true);
-        break;
-    case DISABLE_ROTATE:
-        game.canRotate = false;
-        break;
-    case SLOW_DOWN:
-        game.SetSpeed(2.0);
-        break;
-   
-       
-   
+    if (IsEffectActive()) {
+        switch (currentEffect) {
+        case DISABLE_HOLD:
+            game.canHold = false;
+            break;
+        case DISABLE_ROTATE:
+            game.canRotate = false;
+            break;
+        case SPEED_UP:
+            game.SetSpeed(0.03);
+            break;
+        case SLOW_DOWN:
+            game.SetSpeed(2.0);
+            break;
+        case BIG_BLOCK:
+            game.SetBigBlockMod(true);
+            break;
+        case LINE_BLOCK:
+            game.SetLineBlock(true);
+            break;
+        case REVERSE_CONTROL:
+            game.ReverseControl(true);
+        }
     }
 }
 
 void ChaosEffects::UpdateEffect(Game& game) {
-    if (IsEffectActive()) {
-        double currentTime = GetTime();
-        double elapsedTime = currentTime - (effectEndTime - activeEffects.front().timeRemaining);
+   
+     
+        if (IsEffectActive()) {
+            double currentTime = GetTime();
+            double elapsedTime = currentTime - (effectEndTime - activeEffects.front().timeRemaining);
 
-        if (elapsedTime > 0) {
-            activeEffects.front().timeRemaining -= elapsedTime;
+            if (elapsedTime > 0) {
+                activeEffects.front().timeRemaining -= elapsedTime;
 
-            if (activeEffects.front().timeRemaining <= 0) {
-                ResetEffect(game);
-            }
-            else {
-                effectEndTime = currentTime + activeEffects.front().timeRemaining;
+                if (activeEffects.front().timeRemaining <= 0) {
+                    ResetEffect(game);
+                }
+                else {
+                    effectEndTime = currentTime + activeEffects.front().timeRemaining;
+                }
             }
         }
-    }
+
+      
 }
 
 const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
@@ -66,25 +72,34 @@ const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
         return "BIG BLOCK";
     case LINE_BLOCK:
         return "LINE BLOCK!!!";
+    case REVERSE_CONTROL:
+        return "Reverse Control";
+
     }
 }
 
 void ChaosEffects::DrawChaosEffectUI(Font font) const {
     if (IsEffectActive()) {
         // Draw effect name
-        const char* effectName = GetEffectName(currentEffect);
-        DrawTextEx(font, effectName, { 565, 500 }, 38, 2, WHITE);
+     
+            const char* effectName = GetEffectName(currentEffect);
+            DrawTextEx(font, effectName, { 565, 500 }, 38, 2, WHITE);
 
-        // Calculate remaining time
-        float remainingTime = activeEffects.front().timeRemaining;
-        char effectTimerText[20];
-        sprintf_s(effectTimerText, "Time: %.1f", remainingTime);
-        DrawTextEx(font, effectTimerText, { 565, 550 }, 38, 2, WHITE);
+            // Calculate remaining time
+            float remainingTime = activeEffects.front().timeRemaining;
+            char effectTimerText[20];
+            sprintf_s(effectTimerText, "Time: %.1f", remainingTime);
+            DrawTextEx(font, effectTimerText, { 565, 550 }, 38, 2, WHITE);
+        
     }
 }
 
 bool ChaosEffects::IsEffectActive() const {
     return !activeEffects.empty();
+}
+
+bool ChaosEffects::IsChaosModeActive() const {
+    return GetTime() < chaosEndTime;
 }
 
 void ChaosEffects::ResetEffect(Game& game) {
@@ -106,6 +121,10 @@ void ChaosEffects::ResetEffect(Game& game) {
         break;
     case LINE_BLOCK:
         game.SetLineBlock(false);
+        break;
+    case REVERSE_CONTROL:
+        game.ReverseControl(false);
+        break;
     default:
         break;
     }
@@ -117,7 +136,6 @@ void ChaosEffects::ResetEffect(Game& game) {
     if (!activeEffects.empty()) {
         currentEffect = activeEffects.front().type;
         effectEndTime = GetTime() + activeEffects.front().duration;
-      
     }
     else {
         currentEffect = static_cast<ChaosEffectType>(-1);
@@ -125,12 +143,10 @@ void ChaosEffects::ResetEffect(Game& game) {
 }
 
 void ChaosEffects::StartRandomEffect() {
-    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 6);
-    double duration = 5; 
-    
+    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 7);
+    double duration = 10.0; 
 
-    switch (newEffect)
-    {
+    switch (newEffect) {
     case SPEED_UP:
         duration = 1.0;
         break;
@@ -145,9 +161,11 @@ void ChaosEffects::StartRandomEffect() {
         break;
     }
 
-    activeEffects.push_back({ newEffect, duration, duration});
+    activeEffects.push_back({ newEffect, duration, duration });
     currentEffect = newEffect;
     effectEndTime = GetTime() + duration;
-
 }
 
+void ChaosEffects::StartChaosMode(double duration) {
+    chaosEndTime = GetTime() + duration;
+}

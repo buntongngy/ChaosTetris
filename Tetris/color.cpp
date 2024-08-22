@@ -15,13 +15,13 @@ const Color lightGray = { 179, 182, 183, 255 };
 const Color lightOrange = { 255, 165, 0, 255 };
 const Color darkGreen{ 20,90,50,255 };
 const Color Brown{ 136,76,15,255 };
-//const Color Lime{ 7,255,97,255 };
 const Color Magenta{ 255,0,255,255 };
 const Color Gold{ 255,215,0,255 };
 const Color Cream{ 255,253,208, 255 };
 const Color DarkRed{ 139,0,0, 255 };
 const Color Aquamarine{127, 255,212,255};
 const Color Violet{ 143,0,255,255 };
+const Color Background{ 13,44,169,255 };
 
 
 std::vector<Color> GetCellColor()

@@ -21,6 +21,7 @@ Game::Game()
 	gameOver = false;
 	canRotate = true;
 	canHold = true;
+	reverseControl = false;
 	InitAudioDevice();
 	music = LoadMusicStream("Sound/Background.mp3");
 	PlayMusicStream(music);
@@ -76,6 +77,11 @@ void Game::SetBigBlockMod(bool isActive)
 void Game::SetLineBlock(bool isActive)
 {
 	isLineBlock = isActive;
+}
+
+void Game::ReverseControl(bool isActive)
+{
+	reverseControl = isActive;
 }
 
 std::vector<Block> Game::GetAllBlocks()
@@ -140,10 +146,8 @@ void Game::Draw()
 }
 
 
-//Method that handle the user input from the keyboard
 void Game::HandleInput()
-{	
-	
+{
 	int keyPress = GetKeyPressed();
 
 	if (gameOver && keyPress != 0)
@@ -153,27 +157,50 @@ void Game::HandleInput()
 		PlayMusicStream(music);
 	}
 
-	switch (keyPress)
-	{
-	case KEY_LEFT:
-		MoveBlockLeft();
-		break;
-	case KEY_RIGHT:
-		MoveBlockRight();
-		break;
-	case KEY_DOWN:
-		MoveBlockDown();
-		updateScore(0,1);
-		break;
-		case KEY_UP:
-		RotateBlock();
-		break;
-	case KEY_SPACE:
-		HoldBlock();
-		break;
+	if (reverseControl) {
 		
+		switch (keyPress)
+		{
+		case KEY_RIGHT: 
+			MoveBlockLeft();
+			break;
+		case KEY_LEFT: 
+			MoveBlockRight();
+			break;
+		case KEY_DOWN:
+			MoveBlockDown();
+			updateScore(0, 1);
+			break;
+		case KEY_UP:
+			RotateBlock();
+			break;
+		case KEY_SPACE:
+			HoldBlock();
+			break;
+		}
 	}
-	
+	else {
+		// Normal controls
+		switch (keyPress)
+		{
+		case KEY_LEFT:
+			MoveBlockLeft();
+			break;
+		case KEY_RIGHT:
+			MoveBlockRight();
+			break;
+		case KEY_DOWN:
+			MoveBlockDown();
+			updateScore(0, 1);
+			break;
+		case KEY_UP:
+			RotateBlock();
+			break;
+		case KEY_SPACE:
+			HoldBlock();
+			break;
+		}
+	}
 }
 
 void Game::HoldBlock()

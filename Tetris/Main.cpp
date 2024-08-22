@@ -108,6 +108,7 @@ void ResetChaosMod(Game& game) {
 int main() {
 
     InitWindow(800, 620, "raylib tetis");
+    InitWindow(800, 620, "raylib tetis");
     SetTargetFPS(60);
 
     Font font = LoadFontEx("Font/tetris.ttf", 64, 0, 0);
@@ -146,7 +147,7 @@ int main() {
 
         // Draw Interface
         BeginDrawing();
-        ClearBackground(darkBlue);
+        ClearBackground(Background);
 
         if (gameState == MENU)
         {

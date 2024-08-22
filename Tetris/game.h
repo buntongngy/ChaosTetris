@@ -14,10 +14,12 @@ public:
 	void HandleInput();
 	void HoldBlock();
 	void MoveBlockDown();
+	void updateScore(int lineClear, int movePoint);
 	void Reset();
 	void SetSpeed(double speed) { this->speed = speed; }
 	void SetBigBlockMod(bool isActive);
 	void SetLineBlock(bool isActive);
+	void ReverseControl(bool isActive);
 
 
 
@@ -31,6 +33,7 @@ public:
 	bool canRotate;
 	bool bigBlockEffect = false;
 	bool isLineBlock = false;
+	bool reverseControl = false;
 
 	std::vector<Block> GetAllBlocks();
 	
@@ -57,7 +60,7 @@ private:
 	void MoveBlockRight();
 	void RotateBlock();
 	void LockBlock();
-	void updateScore(int lineClear, int movePoint);
+	
 
 	bool isOutofBound();
 	bool BlockFits();
