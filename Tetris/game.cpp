@@ -22,6 +22,8 @@ Game::Game()
 	canRotate = true;
 	canHold = true;
 	reverseControl = false;
+	isDropping = false;
+	
 	InitAudioDevice();
 	music = LoadMusicStream("Sound/Background.mp3");
 	PlayMusicStream(music);
@@ -79,6 +81,11 @@ void Game::SetLineBlock(bool isActive)
 	isLineBlock = isActive;
 }
 
+void Game::SetSZBlock(bool isActive)
+{
+	isSZBlock = isActive;
+}
+
 void Game::ReverseControl(bool isActive)
 {
 	reverseControl = isActive;
@@ -95,6 +102,11 @@ std::vector<Block> Game::GetAllBlocks()
 	if (isLineBlock)
 	{
 		return { IBlock() };
+	}
+
+	if (isSZBlock)
+	{
+		return { SBlock(), ZBlock() };
 	}
 
 	if (gameState == CHAOS_MOD)
@@ -313,34 +325,45 @@ void Game::MoveBlockRight()
 }
 
 void Game::MoveBlockDown() {
-	
-	if (!gameOver)
-	{
-		currentBlock.Move(1, 0);
-		if (isOutofBound() || BlockFits() == false)
-		{
-			currentBlock.Move(-1, 0);
-			if (IsKeyDown(KEY_DOWN))
-			{
+	if (!gameOver) {
+		bool dropPressed = IsKeyDown(KEY_DOWN); 
+
+		if (dropPressed) {
+			if (!isDropping) {
+				
+				isDropping = true;
+				
+				while (!isOutofBound() && BlockFits()) {
+					currentBlock.Move(1, 0);
+				}
+				
+				currentBlock.Move(-1, 0);
+				
 				LockBlock();
 			}
-			else {
+		}
+		else {
+			
+			isDropping = false;
+		
+			currentBlock.Move(1, 0);
+			if (isOutofBound() || BlockFits() == false) {
+				currentBlock.Move(-1, 0);
 				lockTime += GetFrameTime();
-				if (lockTime >= lockDelay || moveCounter >= moveLimit)
-				{
+				if (lockTime >= lockDelay || moveCounter >= moveLimit) {
 					LockBlock();
 					lockTime = 0;
 					moveCounter = 0;
 				}
 			}
-			
-		}
-		else {
-			lockTime = 0;
-			moveCounter = 0;
+			else {
+				lockTime = 0;
+				moveCounter = 0;
+			}
 		}
 	}
 }
+
 
 void Game::RotateBlock()
 {

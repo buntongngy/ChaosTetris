@@ -13,6 +13,7 @@ enum ChaosEffectType {
     BIG_BLOCK,
     LINE_BLOCK,
     REVERSE_CONTROL,
+    SZ_BLOCK,
 };
 
 struct ChaosEffect {

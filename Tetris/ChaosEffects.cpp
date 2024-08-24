@@ -30,6 +30,9 @@ void ChaosEffects::ApplyEffect(Game& game) {
         case LINE_BLOCK:
             game.SetLineBlock(true);
             break;
+        case SZ_BLOCK:
+            game.SetSZBlock(true);
+            break;
         case REVERSE_CONTROL:
             game.ReverseControl(true);
         }
@@ -72,6 +75,8 @@ const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
         return "BIG BLOCK";
     case LINE_BLOCK:
         return "LINE BLOCK!!!";
+    case SZ_BLOCK:
+        return "S & Z Block Only";
     case REVERSE_CONTROL:
         return "Reverse Control";
 
@@ -122,6 +127,9 @@ void ChaosEffects::ResetEffect(Game& game) {
     case LINE_BLOCK:
         game.SetLineBlock(false);
         break;
+    case SZ_BLOCK:
+        game.SetSZBlock(false);
+        break;
     case REVERSE_CONTROL:
         game.ReverseControl(false);
         break;
@@ -143,7 +151,7 @@ void ChaosEffects::ResetEffect(Game& game) {
 }
 
 void ChaosEffects::StartRandomEffect() {
-    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 7);
+    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 8);
     double duration = 10.0; 
 
     switch (newEffect) {
@@ -154,7 +162,7 @@ void ChaosEffects::StartRandomEffect() {
         duration = 5.0;
         break;
     case BIG_BLOCK:
-        duration = 2.0;
+        duration = 5.0;
         break;
     default:
         duration = 10.0;

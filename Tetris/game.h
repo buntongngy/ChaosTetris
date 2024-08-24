@@ -19,6 +19,7 @@ public:
 	void SetSpeed(double speed) { this->speed = speed; }
 	void SetBigBlockMod(bool isActive);
 	void SetLineBlock(bool isActive);
+	void SetSZBlock(bool isActive);
 	void ReverseControl(bool isActive);
 
 
@@ -33,6 +34,7 @@ public:
 	bool canRotate;
 	bool bigBlockEffect = false;
 	bool isLineBlock = false;
+	bool isSZBlock = false;
 	bool reverseControl = false;
 
 	std::vector<Block> GetAllBlocks();
@@ -64,6 +66,7 @@ private:
 
 	bool isOutofBound();
 	bool BlockFits();
+	bool isDropping;
 
 	std::vector<Block> blocks;
 
