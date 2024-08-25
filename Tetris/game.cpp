@@ -21,6 +21,7 @@ Game::Game()
 	gameOver = false;
 	canRotate = true;
 	canHold = true;
+	canDrop = true;
 	reverseControl = false;
 	isDropping = false;
 	
@@ -132,27 +133,27 @@ void Game::Draw()
 	switch (nextBlock.id)
 	{
 	case 3:
-		nextBlock.Draw(510, 240, false);
+		nextBlock.Draw(540, 240, false);
 		break;
 
 	case 4:
-		nextBlock.Draw(510, 230, false);
+		nextBlock.Draw(540, 230, false);
 		break;
 	case 8:
-		nextBlock.Draw(520, 230, false);
+		nextBlock.Draw(550, 230, false);
 		break;
 	case 9:
-		nextBlock.Draw(510, 210, false);
+		nextBlock.Draw(540, 210, false);
 		break;
 	case 10:
-		nextBlock.Draw(495, 245, false);
+		nextBlock.Draw(525, 245, false);
 		break;
 	case 11:
-		nextBlock.Draw(500, 230, false);
+		nextBlock.Draw(530, 230, false);
 		break;
 
 	default:
-		nextBlock.Draw(525, 230, false);
+		nextBlock.Draw(555, 230, false);
 		break;
 	}
 }
@@ -181,12 +182,15 @@ void Game::HandleInput()
 			break;
 		case KEY_DOWN:
 			MoveBlockDown();
+			break;
+		case KEY_SPACE:
+			DropBlock();
 			updateScore(0, 1);
 			break;
 		case KEY_UP:
 			RotateBlock();
 			break;
-		case KEY_SPACE:
+		case KEY_C:
 			HoldBlock();
 			break;
 		}
@@ -203,12 +207,15 @@ void Game::HandleInput()
 			break;
 		case KEY_DOWN:
 			MoveBlockDown();
+			break;
+		case KEY_SPACE:
+			DropBlock();
 			updateScore(0, 1);
 			break;
 		case KEY_UP:
 			RotateBlock();
 			break;
-		case KEY_SPACE:
+		case KEY_C:
 			HoldBlock();
 			break;
 		}
@@ -325,10 +332,40 @@ void Game::MoveBlockRight()
 }
 
 void Game::MoveBlockDown() {
-	if (!gameOver) {
-		bool dropPressed = IsKeyDown(KEY_DOWN); 
 
-		if (dropPressed) {
+	if (!gameOver)
+	{
+		currentBlock.Move(1, 0);
+		if (isOutofBound() || BlockFits() == false)
+		{
+			currentBlock.Move(-1, 0);
+			if (IsKeyDown(KEY_DOWN))
+			{
+				LockBlock();
+			}
+			else {
+				lockTime += GetFrameTime();
+				if (lockTime >= lockDelay || moveCounter >= moveLimit)
+				{
+					LockBlock();
+					lockTime = 0;
+					moveCounter = 0;
+				}
+			}
+
+		}
+		else {
+			lockTime = 0;
+			moveCounter = 0;
+		}
+	}
+}
+
+
+
+void Game::DropBlock() {
+	if (!gameOver && canDrop) {
+		
 			if (!isDropping) {
 				
 				isDropping = true;
@@ -340,27 +377,10 @@ void Game::MoveBlockDown() {
 				currentBlock.Move(-1, 0);
 				
 				LockBlock();
+				isDropping = false;
 			}
-		}
-		else {
-			
-			isDropping = false;
 		
-			currentBlock.Move(1, 0);
-			if (isOutofBound() || BlockFits() == false) {
-				currentBlock.Move(-1, 0);
-				lockTime += GetFrameTime();
-				if (lockTime >= lockDelay || moveCounter >= moveLimit) {
-					LockBlock();
-					lockTime = 0;
-					moveCounter = 0;
-				}
-			}
-			else {
-				lockTime = 0;
-				moveCounter = 0;
-			}
-		}
+		
 	}
 }
 

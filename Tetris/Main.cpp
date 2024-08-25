@@ -26,20 +26,20 @@ bool EventTriggered(double interval)
 
 void DrawGame(Font font, Game& game, bool isChaosMode)
 {
-    DrawTextEx(font, "Score", { 565, 15 }, 38, 2, WHITE);
-    DrawTextEx(font, "Next", { 570, 125 }, 38, 2, WHITE);
+    DrawTextEx(font, "Score", { 600, 15 }, 38, 2, WHITE);
+    DrawTextEx(font, "Next", { 600, 125 }, 38, 2, WHITE);
     DrawTextEx(font, "Hold", { 50, 15 }, 38, 2, WHITE);
 
 
-    DrawRectangleRounded({ 570,55,170, 60 }, 0.3, 6, lightBlue);
+    DrawRectangleRounded({ 600,55,170, 60 }, 0.3, 6, lightBlue);
 
     char scoreText[10];
     sprintf_s(scoreText, "%d", game.score);
     Vector2 textSize = MeasureTextEx(font, scoreText, 38, 2);
 
-    DrawTextEx(font, scoreText, { 600, 65 }, 38, 2, WHITE);
+    DrawTextEx(font, scoreText, { 620, 65 }, 38, 2, WHITE);
 
-    DrawRectangleRounded({ 570,175,170, 180 }, 0.3, 6, lightBlue);
+    DrawRectangleRounded({ 600,175,170, 180 }, 0.3, 6, lightBlue);
     DrawRectangleRounded({ 15, 65, 170,180 }, 0.3, 6, lightBlue);
 
     if (game.heldBlock)
@@ -65,11 +65,11 @@ void DrawGame(Font font, Game& game, bool isChaosMode)
     game.Draw();
 
     if (isChaosMode) {
-        DrawTextEx(font, "Chaos", { 565, 400 }, 38, 2, WHITE);
+        DrawTextEx(font, "Chaos", { 600, 400 }, 38, 2, WHITE);
 
         char chaosTimerText[20];
         sprintf_s(chaosTimerText, "Timer %.1f", chaosTimer);
-        DrawTextEx(font, chaosTimerText, { 565, 450 }, 38, 2, WHITE);
+        DrawTextEx(font, chaosTimerText, { 600, 450 }, 38, 2, WHITE);
 
         
         chaosEffects.DrawChaosEffectUI(font);

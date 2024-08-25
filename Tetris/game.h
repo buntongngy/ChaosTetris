@@ -13,6 +13,7 @@ public:
 	void Draw();
 	void HandleInput();
 	void HoldBlock();
+	void DropBlock();
 	void MoveBlockDown();
 	void updateScore(int lineClear, int movePoint);
 	void Reset();
@@ -32,6 +33,7 @@ public:
 	bool heldBlock;
 	bool canHold;
 	bool canRotate;
+	bool canDrop;
 	bool bigBlockEffect = false;
 	bool isLineBlock = false;
 	bool isSZBlock = false;
@@ -52,7 +54,7 @@ public:
 private:
 	double lockDelay = 0.05;
 	double lockTime = 0;
-	double speed = 0.1;
+	double speed = 0.2;
 	int moveCounter = 0;
 	int moveLimit = 5;
 
@@ -60,6 +62,7 @@ private:
 
 	void MoveBlockLeft();
 	void MoveBlockRight();
+
 	void RotateBlock();
 	void LockBlock();
 	

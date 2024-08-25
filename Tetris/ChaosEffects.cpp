@@ -23,6 +23,7 @@ void ChaosEffects::ApplyEffect(Game& game) {
             break;
         case SLOW_DOWN:
             game.SetSpeed(2.0);
+            game.canDrop = false;
             break;
         case BIG_BLOCK:
             game.SetBigBlockMod(true);
@@ -88,13 +89,13 @@ void ChaosEffects::DrawChaosEffectUI(Font font) const {
         // Draw effect name
      
             const char* effectName = GetEffectName(currentEffect);
-            DrawTextEx(font, effectName, { 565, 500 }, 38, 2, WHITE);
+            DrawTextEx(font, effectName, { 600, 500 }, 26, 2, WHITE);
 
             // Calculate remaining time
             float remainingTime = activeEffects.front().timeRemaining;
             char effectTimerText[20];
             sprintf_s(effectTimerText, "Time: %.1f", remainingTime);
-            DrawTextEx(font, effectTimerText, { 565, 550 }, 38, 2, WHITE);
+            DrawTextEx(font, effectTimerText, { 600, 550 }, 26, 2, WHITE);
         
     }
 }
@@ -110,7 +111,7 @@ bool ChaosEffects::IsChaosModeActive() const {
 void ChaosEffects::ResetEffect(Game& game) {
     switch (currentEffect) {
     case SPEED_UP:
-        game.SetSpeed(0.1);
+        game.SetSpeed(0.2);
         break;
     case BIG_BLOCK:
         game.SetBigBlockMod(false);
@@ -120,6 +121,7 @@ void ChaosEffects::ResetEffect(Game& game) {
         break;
     case SLOW_DOWN:
         game.SetSpeed(0.2);
+        game.canDrop = true;
         break;
     case DISABLE_HOLD:
         game.canHold = true;
