@@ -36,6 +36,10 @@ void ChaosEffects::ApplyEffect(Game& game) {
             break;
         case REVERSE_CONTROL:
             game.ReverseControl(true);
+            break;
+        case PENTRIX:
+            game.SetPentrix(true);
+            break;
         }
     }
 }
@@ -80,7 +84,8 @@ const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
         return "S & Z Block Only";
     case REVERSE_CONTROL:
         return "Reverse Control";
-
+    case PENTRIX:
+        return "Pentrix Mode";
     }
 }
 
@@ -132,6 +137,8 @@ void ChaosEffects::ResetEffect(Game& game) {
     case SZ_BLOCK:
         game.SetSZBlock(false);
         break;
+    case PENTRIX:
+        game.SetPentrix(false);
     case REVERSE_CONTROL:
         game.ReverseControl(false);
         break;
@@ -153,7 +160,7 @@ void ChaosEffects::ResetEffect(Game& game) {
 }
 
 void ChaosEffects::StartRandomEffect() {
-    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 8);
+    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 9);
     double duration = 10.0; 
 
     switch (newEffect) {

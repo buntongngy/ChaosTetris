@@ -72,54 +72,31 @@ Block Game::GetRandomBlock()
 	return block;
 }
 
-void Game::SetBigBlockMod(bool isActive)
-{
-	bigBlockEffect = isActive;
-}
-
-void Game::SetLineBlock(bool isActive)
-{
-	isLineBlock = isActive;
-}
-
-void Game::SetSZBlock(bool isActive)
-{
-	isSZBlock = isActive;
-}
-
-void Game::ReverseControl(bool isActive)
-{
-	reverseControl = isActive;
-}
 
 std::vector<Block> Game::GetAllBlocks()
 {
+	std::vector<Block> blocks;
 
-	if (bigBlockEffect)
-	{
-		return { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock(), BigTBlock(), BigIBlock()};
+	if (isSZBlock) {
+		blocks = { SBlock(), ZBlock() };
 	}
-
-	if (isLineBlock)
-	{
-		return { IBlock() };
+	else if (bigBlockEffect) {
+		blocks = { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock(), BigTBlock(), BigIBlock() };
 	}
-
-	if (isSZBlock)
-	{
-		return { SBlock(), ZBlock() };
+	else if (isLineBlock) {
+		blocks = { IBlock() };
 	}
-
-	if (gameState == CHAOS_MOD)
-	{
-	
-		return { IBlock(), JBlock(), SBlock(), TBlock(),LBlock(), ZBlock(), OBlock(), UBlock(), FBlock(), DotBlock(), CommaBlock()};
+	else if (isPentrix) {
+		blocks = { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenZBlock()};
+	}
+	else if (gameState == CHAOS_MOD) {
+		blocks = { IBlock(), JBlock(), SBlock(), TBlock(), LBlock(), ZBlock(), OBlock(), FBlock(), DotBlock(), CommaBlock() };
 	}
 	else {
-		return { IBlock(), JBlock(), SBlock(), TBlock(),LBlock(), ZBlock(), OBlock() };
+		blocks = { IBlock(), JBlock(), SBlock(), TBlock(), LBlock(), ZBlock(), OBlock() };
 	}
-	
-	
+
+	return blocks;
 }
 
 
@@ -480,6 +457,31 @@ void Game::LockBlock()
 		updateScore(rowClear, 0);
 	}
 	
+}
+
+void Game::SetBigBlockMod(bool isActive)
+{
+	bigBlockEffect = isActive;
+}
+
+void Game::SetLineBlock(bool isActive)
+{
+	isLineBlock = isActive;
+}
+
+void Game::SetSZBlock(bool isActive)
+{
+	isSZBlock = isActive;
+}
+
+void Game::SetPentrix(bool isActive)
+{
+	isPentrix = isActive;
+}
+
+void Game::ReverseControl(bool isActive)
+{
+	reverseControl = isActive;
 }
 
 

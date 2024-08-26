@@ -21,6 +21,7 @@ public:
 	void SetBigBlockMod(bool isActive);
 	void SetLineBlock(bool isActive);
 	void SetSZBlock(bool isActive);
+	void SetPentrix(bool isActive);
 	void ReverseControl(bool isActive);
 
 
@@ -37,6 +38,7 @@ public:
 	bool bigBlockEffect = false;
 	bool isLineBlock = false;
 	bool isSZBlock = false;
+	bool isPentrix = false;
 	bool reverseControl = false;
 
 	std::vector<Block> GetAllBlocks();

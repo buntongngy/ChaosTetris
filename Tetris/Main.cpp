@@ -165,8 +165,8 @@ int main() {
             DrawRectangleRounded({ chaosTextPosition.x - 10, chaosTextPosition.y - 10, chaosTextSize.x + 20, chaosTextSize.y + 20 }, 0.3, 6, lightBlue);
             DrawRectangleRounded({ escTextPosition.x - 10, escTextPosition.y - 10, escTextSize.x + 20, escTextSize.y + 20 }, 0.3, 6, lightBlue);
 
-            DrawTextEx(font, "Press Enter to Start", enterTextPosition, 32, 2, WHITE);
-            DrawTextEx(font, "Press Shift to enter Chaos Mod", chaosTextPosition, 32, 2, WHITE);
+            DrawTextEx(font, "Press E to Start", enterTextPosition, 32, 2, WHITE);
+            DrawTextEx(font, "Press R to enter Chaos Mod", chaosTextPosition, 32, 2, WHITE);
             DrawTextEx(font, "Press Esc to Exit", escTextPosition, 32, 2, WHITE);
         }
         else if (gameState == GAME)
@@ -197,8 +197,8 @@ int main() {
 
             DrawTextEx(font, "Game Over", { 250, 200 }, 64, 2, WHITE);
             DrawTextEx(font, scoreText, { 265, 275 }, 38, 2, WHITE);
-            DrawTextEx(font, "Press Enter to restart", { 190, 350 }, 38, 2, WHITE);
-            DrawTextEx(font, "Press Shift to enter Chaos Mod", { 100,400 }, 38, 2, WHITE);
+            DrawTextEx(font, "Press E to restart", { 190, 350 }, 38, 2, WHITE);
+            DrawTextEx(font, "Press R to enter Chaos Mod", { 100,400 }, 38, 2, WHITE);
             DrawTextEx(font, "Press Esc to Exit", { 250, 450 }, 38, 2, WHITE);
         }
 
@@ -206,12 +206,12 @@ int main() {
 
         if (gameState == MENU)
         {
-            if (IsKeyPressed(KEY_ENTER)) {
+            if (IsKeyPressed(KEY_E)) {
                 gameState = GAME;
                 game.Reset();
                 PlayMusicStream(game.music);
             }
-            else if (IsKeyPressed(KEY_RIGHT_SHIFT))
+            else if (IsKeyPressed(KEY_R))
             {
                 gameState = CHAOS_MOD;
             }
@@ -221,12 +221,12 @@ int main() {
         }
         else if (gameState == GAME_OVER)
         {
-            if (IsKeyPressed(KEY_ENTER)) {
+            if (IsKeyPressed(KEY_E)) {
                 gameState = GAME;
                 game.Reset();
                 PlayMusicStream(game.music);
             }
-            else if (IsKeyPressed(KEY_RIGHT_SHIFT))
+            else if (IsKeyPressed(KEY_R))
             {
                 gameState = CHAOS_MOD;
                 game.Reset();
