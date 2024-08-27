@@ -46,6 +46,7 @@ Game::~Game()
 
 Block Game::GetRandomBlock()
 {
+	canHold = true;
 	if (bigBlockEffect) {
 		std::vector<Block> bigBlocks = { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock(), BigTBlock(), BigIBlock()};
 
@@ -79,7 +80,7 @@ Block Game::GetRandomBlock()
 	{
 		blocks = GetAllBlocks();
 	}
-	canHold = true;
+	
 	int randomIndex = rand() % blocks.size();
 	Block block = blocks[randomIndex];
 	blocks.erase(blocks.begin() + randomIndex);
@@ -91,23 +92,24 @@ std::vector<Block> Game::GetAllBlocks()
 {
 	std::vector<Block> blocks;
 
-	if (isSZBlock) {
-		blocks = { SBlock(), ZBlock() };
-	}
-	else if (bigBlockEffect) {
-		blocks = { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock(), BigTBlock(), BigIBlock() };
-	}
-	else if (isLineBlock) {
-		blocks = { IBlock() };
-	}
-	else if (isPentrix) {
-		blocks = { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenZBlock()};
-	}
-	else if (gameState == CHAOS_MOD) {
+	if (gameState == CHAOS_MOD) {
 		blocks = { IBlock(), JBlock(), SBlock(), TBlock(), LBlock(), ZBlock(), OBlock(), FBlock(), DotBlock(), CommaBlock() };
 	}
 	else {
 		blocks = { IBlock(), JBlock(), SBlock(), TBlock(), LBlock(), ZBlock(), OBlock() };
+
+		if (isSZBlock) {
+			blocks.insert(blocks.end(), { SBlock(), ZBlock() });
+		}
+		if (bigBlockEffect) {
+			blocks.insert(blocks.end(), { BigOBlock(), BigLBlock(), BigJBlock(), BigSBlock(), BigZBlock(), BigTBlock(), BigIBlock() });
+		}
+		if (isLineBlock) {
+			blocks.push_back(IBlock());
+		}
+		if (isPentrix) {
+			blocks.insert(blocks.end(), { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenZBlock() });
+		}
 	}
 
 	return blocks;
@@ -221,7 +223,6 @@ void Game::HoldBlock()
 		if (heldBlock)
 		{
 			
-			
 				Block temp = currentBlock;
 				currentBlock = holdBlock;
 				holdBlock = temp;
@@ -232,7 +233,6 @@ void Game::HoldBlock()
 				holdBlock.heldRotate();
 
 				canHold = false;
-			
 			
 		}
 		else if (!gameOver && !heldBlock)
@@ -249,40 +249,8 @@ void Game::HoldBlock()
 			canHold = false;
 		}
 
-		switch (holdBlock.id)
-		{
-		case 3:
-			holdBlock.rowOffSet = 1;
-			holdBlock.colOffSet = 2;
-			break;
-
-		case 4:
-			holdBlock.rowOffSet = 2;
-			holdBlock.colOffSet = 3;
-			break;
-		case 8:
-			holdBlock.rowOffSet = 2;
-			holdBlock.colOffSet = 3;
-			break;
-		case 9:
-			holdBlock.rowOffSet = 1;
-			holdBlock.colOffSet = 2;
-			break;
-		case 10:
-			holdBlock.rowOffSet = 3;
-			holdBlock.colOffSet = 3;
-			break;
-		case 11:
-			holdBlock.rowOffSet = 2;
-			holdBlock.colOffSet = 3;
-			break;
-
-		default:
-			holdBlock.rowOffSet = 2;
-			holdBlock.colOffSet = 3;
-			break;
-		}
-	
+		HoldBlockOffSet();
+		
 		PlaySound(rotateSound);
 	}
 	
@@ -476,21 +444,25 @@ void Game::LockBlock()
 void Game::SetBigBlockMod(bool isActive)
 {
 	bigBlockEffect = isActive;
+	
 }
 
 void Game::SetLineBlock(bool isActive)
 {
 	isLineBlock = isActive;
+	
 }
 
 void Game::SetSZBlock(bool isActive)
 {
 	isSZBlock = isActive;
+
 }
 
 void Game::SetPentrix(bool isActive)
 {
 	isPentrix = isActive;
+	
 }
 
 void Game::ReverseControl(bool isActive)
@@ -517,3 +489,39 @@ void Game::Reset()
 }
 
 
+void Game::HoldBlockOffSet()
+{
+	switch (holdBlock.id)
+	{
+	case 3:
+		holdBlock.rowOffSet = 1;
+		holdBlock.colOffSet = 2;
+		break;
+
+	case 4:
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 3;
+		break;
+	case 8:
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 3;
+		break;
+	case 9:
+		holdBlock.rowOffSet = 1;
+		holdBlock.colOffSet = 2;
+		break;
+	case 10:
+		holdBlock.rowOffSet = 3;
+		holdBlock.colOffSet = 3;
+		break;
+	case 11:
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 3;
+		break;
+
+	default:
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 3;
+		break;
+	}
+}

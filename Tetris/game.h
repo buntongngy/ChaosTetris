@@ -64,7 +64,7 @@ private:
 
 	void MoveBlockLeft();
 	void MoveBlockRight();
-
+	void HoldBlockOffSet();
 	void RotateBlock();
 	void LockBlock();
 	

@@ -139,6 +139,7 @@ void ChaosEffects::ResetEffect(Game& game) {
         break;
     case PENTRIX:
         game.SetPentrix(false);
+        break;
     case REVERSE_CONTROL:
         game.ReverseControl(false);
         break;
@@ -166,6 +167,9 @@ void ChaosEffects::StartRandomEffect() {
     switch (newEffect) {
     case SPEED_UP:
         duration = 1.0;
+        break;
+    case DISABLE_ROTATE:
+        duration = 5.0;
         break;
     case SLOW_DOWN:
         duration = 5.0;
