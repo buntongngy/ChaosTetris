@@ -508,30 +508,25 @@ void Game::HoldBlockOffSet()
 {
 	switch (holdBlock.id)
 	{
-	case 3:
+	case 3: case 9: case 19: case 22: case 23:
 		holdBlock.rowOffSet = 1;
 		holdBlock.colOffSet = 2;
 		break;
-
-	case 4:
-		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3;
-		break;
-	case 8:
-		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3;
-		break;
-	case 9:
-		holdBlock.rowOffSet = 1;
-		holdBlock.colOffSet = 2;
-		break;
+	
+	
 	case 10:
 		holdBlock.rowOffSet = 3;
 		holdBlock.colOffSet = 3;
 		break;
-	case 11:
+
+	case 20: 
 		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3;
+		holdBlock.colOffSet = 1;
+		break;
+
+	case 21: case 24: case 25:
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 2;
 		break;
 
 	default:
