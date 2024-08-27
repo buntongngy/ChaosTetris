@@ -168,15 +168,10 @@ void ChaosEffects::StartRandomEffect() {
     case SPEED_UP:
         duration = 1.0;
         break;
-    case DISABLE_ROTATE:
+    case DISABLE_ROTATE: case SLOW_DOWN: case BIG_BLOCK:
         duration = 5.0;
         break;
-    case SLOW_DOWN:
-        duration = 5.0;
-        break;
-    case BIG_BLOCK:
-        duration = 5.0;
-        break;
+   
     default:
         duration = 10.0;
         break;

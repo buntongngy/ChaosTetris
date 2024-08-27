@@ -29,7 +29,7 @@ Game::Game()
 	music = LoadMusicStream("Sound/Background.mp3");
 	PlayMusicStream(music);
 	rotateSound = LoadSound("Sound/Rotate.mp3");
-	clearSound = LoadSound("Sound/Clear.mp3");
+	clearSound = LoadSound("Sound/Clear.wav");
 	gameOverSound = LoadSound("Sound/Game_Over.mp3");
 }
 
@@ -117,54 +117,7 @@ std::vector<Block> Game::GetAllBlocks()
 
 
 
-void Game::Draw()
-{
-	grid.Draw();
-	currentBlock.Draw(11, 11, true);  
 
-	
-	switch (nextBlock.id)
-	{
-	case 3:
-		nextBlock.Draw(540, 240, false);
-		break;
-
-	case 4:
-		nextBlock.Draw(540, 230, false);
-		break;
-	case 8:
-		nextBlock.Draw(550, 230, false);
-		break;
-	case 9:
-		nextBlock.Draw(540, 210, false);
-		break;
-	case 10:
-		nextBlock.Draw(525, 245, false);
-		break;
-	case 11:
-		nextBlock.Draw(530, 230, false);
-		break;
-	case 19:
-		nextBlock.Draw(520, 210, false);
-		break;
-	case 20:
-		nextBlock.Draw(495, 220, false);
-		break;
-	case 21:
-		nextBlock.Draw(520, 230, false);
-		break;
-	case 22: case 23:
-		nextBlock.Draw(495, 210, false);
-		break;
-	case 24: case 25:
-		nextBlock.Draw(500, 230, false);
-		break;
-
-	default:
-		nextBlock.Draw(555, 230, false);
-		break;
-	}
-}
 
 
 void Game::HandleInput()
@@ -272,110 +225,6 @@ void Game::HoldBlock()
 }
 
 //Method that handle the move function of the kyeboard
-void Game::MoveBlockLeft()
-{
-	if (!gameOver)
-	{
-		currentBlock.Move(0, -1);
-		if (isOutofBound() || BlockFits() == false)
-		{
-			currentBlock.Move(0, 1);
-		}
-		else {
-			lockTime = 0;
-			moveCounter++;
-		}
-	} 
-}
-
-void Game::MoveBlockRight()	
-{
-	if (!gameOver)
-	{
-		currentBlock.Move(0, 1);
-		if (isOutofBound() || BlockFits() == false)
-		{
-			currentBlock.Move(0, -1);
-
-		}
-		else {
-			lockTime = 0;
-			moveCounter++;
-		}
-	}
-}
-
-void Game::MoveBlockDown() {
-
-	if (!gameOver)
-	{
-		currentBlock.Move(1, 0);
-		if (isOutofBound() || BlockFits() == false)
-		{
-			currentBlock.Move(-1, 0);
-			if (IsKeyDown(KEY_DOWN))
-			{
-				LockBlock();
-			}
-			else {
-				lockTime += GetFrameTime();
-				if (lockTime >= lockDelay || moveCounter >= moveLimit)
-				{
-					LockBlock();
-					lockTime = 0;
-					moveCounter = 0;
-				}
-			}
-
-		}
-		else {
-			lockTime = 0;
-			moveCounter = 0;
-		}
-	}
-}
-
-
-
-void Game::DropBlock() {
-	if (!gameOver && canDrop) {
-		
-			if (!isDropping) {
-				
-				isDropping = true;
-				
-				while (!isOutofBound() && BlockFits()) {
-					currentBlock.Move(1, 0);
-				}
-				
-				currentBlock.Move(-1, 0);
-				
-				LockBlock();
-				isDropping = false;
-			}
-		
-		
-	}
-}
-
-
-void Game::RotateBlock()
-{
-	if (!gameOver && canRotate)
-	{
-		currentBlock.Rotate();
-		if (isOutofBound() || BlockFits() == false)
-		{
-			currentBlock.undo_Rotate();
-		}
-		else
-		{
-			lockTime = 0;
-			moveCounter++;
-			PlaySound(rotateSound);
-		}
-	}
-}
 
 bool Game::isOutofBound()
 {
@@ -456,37 +305,6 @@ void Game::LockBlock()
 	
 }
 
-void Game::SetBigBlockMod(bool isActive)
-{
-	bigBlockEffect = isActive;
-	
-}
-
-void Game::SetLineBlock(bool isActive)
-{
-	isLineBlock = isActive;
-	
-}
-
-void Game::SetSZBlock(bool isActive)
-{
-	isSZBlock = isActive;
-
-}
-
-void Game::SetPentrix(bool isActive)
-{
-	isPentrix = isActive;
-	
-}
-
-void Game::ReverseControl(bool isActive)
-{
-	reverseControl = isActive;
-}
-
-
-
 void Game::Reset()
 {
 	
@@ -504,39 +322,3 @@ void Game::Reset()
 }
 
 
-void Game::HoldBlockOffSet()
-{
-	switch (holdBlock.id)
-	{
-	case 3:
-		holdBlock.rowOffSet = 1;
-		holdBlock.colOffSet = 2;
-		break;
-
-	case 4:
-		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3;
-		break;
-	case 8:
-		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3;
-		break;
-	case 9:
-		holdBlock.rowOffSet = 1;
-		holdBlock.colOffSet = 2;
-		break;
-	case 10:
-		holdBlock.rowOffSet = 3;
-		holdBlock.colOffSet = 3;
-		break;
-	case 11:
-		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3;
-		break;
-
-	default:
-		holdBlock.rowOffSet = 2;
-		holdBlock.colOffSet = 3;
-		break;
-	}
-}
