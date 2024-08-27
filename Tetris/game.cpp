@@ -61,6 +61,20 @@ Block Game::GetRandomBlock()
 		return lineBlock[index];
 	}
 
+	if (isSZBlock)
+	{
+		std::vector<Block> SZBlock = { SBlock(), ZBlock() };
+		int index = rand() % SZBlock.size();
+		return SZBlock[index];
+	}
+
+	if (isPentrix)
+	{
+		std::vector<Block> PentrixBlock = { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenZBlock() };
+		int index = rand() % PentrixBlock.size();
+		return PentrixBlock[index];
+	}
+
 	if (blocks.empty())
 	{
 		blocks = GetAllBlocks();
