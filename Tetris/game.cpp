@@ -71,7 +71,7 @@ Block Game::GetRandomBlock()
 
 	if (isPentrix)
 	{
-		std::vector<Block> PentrixBlock = { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenZBlock() };
+		std::vector<Block> PentrixBlock = { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenJBlock() };
 		int index = rand() % PentrixBlock.size();
 		return PentrixBlock[index];
 	}
@@ -108,7 +108,7 @@ std::vector<Block> Game::GetAllBlocks()
 			blocks.push_back(IBlock());
 		}
 		if (isPentrix) {
-			blocks.insert(blocks.end(), { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenZBlock() });
+			blocks.insert(blocks.end(), { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenJBlock()});
 		}
 	}
 
@@ -143,6 +143,21 @@ void Game::Draw()
 		break;
 	case 11:
 		nextBlock.Draw(530, 230, false);
+		break;
+	case 19:
+		nextBlock.Draw(520, 210, false);
+		break;
+	case 20:
+		nextBlock.Draw(495, 220, false);
+		break;
+	case 21:
+		nextBlock.Draw(520, 230, false);
+		break;
+	case 22: case 23:
+		nextBlock.Draw(495, 210, false);
+		break;
+	case 24: case 25:
+		nextBlock.Draw(500, 230, false);
 		break;
 
 	default:

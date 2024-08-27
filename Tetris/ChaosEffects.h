@@ -35,14 +35,14 @@ public:
     void DrawChaosEffectUI(Font font) const;
     void ResetEffect(Game& game);
     void StartRandomEffect();
-    void StartChaosMode(double duration); // New method to start chaos mode
+    void StartChaosMode(double duration); 
 
     bool IsEffectActive() const;
-    bool IsChaosModeActive() const; // New method to check chaos mode status
+    bool IsChaosModeActive() const;
 
 private:
     std::vector<ChaosEffect> activeEffects;
     double effectEndTime;
-    double chaosEndTime; // New variable for chaos mode end time
+    double chaosEndTime; 
     int blockCounter;
 };
