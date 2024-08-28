@@ -322,3 +322,37 @@ void Game::Reset()
 }
 
 
+<<<<<<< HEAD
+=======
+void Game::HoldBlockOffSet()
+{
+	switch (holdBlock.id)
+	{
+	case 3: case 9: case 19: case 22: case 23:
+		holdBlock.rowOffSet = 1;
+		holdBlock.colOffSet = 2;
+		break;
+	
+	
+	case 10:
+		holdBlock.rowOffSet = 3;
+		holdBlock.colOffSet = 3;
+		break;
+
+	case 20: 
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 1;
+		break;
+
+	case 21: case 24: case 25:
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 2;
+		break;
+
+	default:
+		holdBlock.rowOffSet = 2;
+		holdBlock.colOffSet = 3;
+		break;
+	}
+}
+>>>>>>> 24d6fe9d44450837f1e91eca580e2912f019795e
