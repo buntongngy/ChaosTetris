@@ -24,8 +24,6 @@ public:
 	void SetPentrix(bool isActive);
 	void ReverseControl(bool isActive);
 
-
-
 	double GetSpeed() const {
 		return speed;
 	}

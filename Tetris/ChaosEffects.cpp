@@ -161,7 +161,7 @@ void ChaosEffects::ResetEffect(Game& game) {
 }
 
 void ChaosEffects::StartRandomEffect() {
-    ChaosEffectType newEffect = PENTRIX;
+    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 9);
     double duration = 10.0; 
 
     switch (newEffect) {
