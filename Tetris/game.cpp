@@ -4,12 +4,15 @@
 #include "GameState.h"
 #include <random>
 #include <iostream>
+#include <ctime>
 
 
 
 Game::Game()
 {
 	
+	srand(time(nullptr));
+
 	Block holdBlock;
 	score = 0;
 	grid = Grid();

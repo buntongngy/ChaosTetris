@@ -1,7 +1,7 @@
 
 #include "ChaosEffects.h"
 #include "raylib.h"
-#include <cstdlib>
+
 
 ChaosEffects::ChaosEffects() : currentEffect(), effectEndTime(0), chaosEndTime(0) {}
 
