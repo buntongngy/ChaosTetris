@@ -36,6 +36,7 @@ extern const Color darkGreen;
 extern const Color GreenYellow;
 extern const Color Olive;
 
+extern const Color lightBlack;
 extern const Color Background;
 
 std::vector<Color> GetCellColor();

@@ -79,6 +79,13 @@ Block Game::GetRandomBlock()
 		return PentrixBlock[index];
 	}
 
+	if (isRain)
+	{
+		std::vector<Block> rainBlock = { DotBlock(),CommaBlock()};
+		int index = rand() % rainBlock.size();
+		return rainBlock[index];
+	}
+
 	if (blocks.empty())
 	{
 		blocks = GetAllBlocks();
@@ -96,7 +103,7 @@ std::vector<Block> Game::GetAllBlocks()
 	std::vector<Block> blocks;
 
 	if (gameState == CHAOS_MOD) {
-		blocks = { IBlock(), JBlock(), SBlock(), TBlock(), LBlock(), ZBlock(), OBlock(), FBlock(), DotBlock(), CommaBlock() };
+		blocks = { IBlock(), JBlock(), SBlock(), TBlock(), LBlock(), ZBlock(), OBlock(), FBlock(), };
 	}
 	else {
 		blocks = { IBlock(), JBlock(), SBlock(), TBlock(), LBlock(), ZBlock(), OBlock() };
@@ -112,6 +119,10 @@ std::vector<Block> Game::GetAllBlocks()
 		}
 		if (isPentrix) {
 			blocks.insert(blocks.end(), { PenTBlock(), PBlock(), PenIBlock(), UBlock(), PenSBlock(), PenZBlock(), PenLBlock(), PenJBlock()});
+		}
+		if (isRain)
+		{
+			blocks.insert(blocks.end(), { DotBlock(), CommaBlock()});
 		}
 	}
 

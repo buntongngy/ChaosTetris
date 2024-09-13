@@ -22,6 +22,7 @@ public:
 	void SetLineBlock(bool isActive);
 	void SetSZBlock(bool isActive);
 	void SetPentrix(bool isActive);
+	void SetRain(bool isActive);
 	void ReverseControl(bool isActive);
 
 	double GetSpeed() const {
@@ -38,6 +39,7 @@ public:
 	bool isSZBlock = false;
 	bool isPentrix = false;
 	bool reverseControl = false;
+	bool isRain = false;
 
 	std::vector<Block> GetAllBlocks();
 	

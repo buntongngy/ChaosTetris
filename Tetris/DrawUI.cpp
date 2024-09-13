@@ -25,9 +25,9 @@ void DrawUI::DrawMenu()
     Vector2 chaosTextSize = MeasureTextEx(font, "Press R to enter Chaos Mod", 32, 2);
     Vector2 escTextSize = MeasureTextEx(font, "Press Esc to Exit", 32, 2);
 
-    DrawRectangleRounded({ enterTextPosition.x - 50, enterTextPosition.y - 10, enterTextSize.x + 80, enterTextSize.y + 20 }, 0.3, 6, lightBlue);
-    DrawRectangleRounded({ chaosTextPosition.x - 40, chaosTextPosition.y - 10, chaosTextSize.x + 80, chaosTextSize.y + 20 }, 0.3, 6, lightBlue);
-    DrawRectangleRounded({ escTextPosition.x - 40 , escTextPosition.y - 10, escTextSize.x + 80, escTextSize.y + 20 }, 0.3, 6, lightBlue);
+    DrawRectangleRounded({ enterTextPosition.x - 50, enterTextPosition.y - 10, enterTextSize.x + 80, enterTextSize.y + 20 }, 0.3, 6, lightBlack);
+    DrawRectangleRounded({ chaosTextPosition.x - 40, chaosTextPosition.y - 10, chaosTextSize.x + 80, chaosTextSize.y + 20 }, 0.3, 6, lightBlack);
+    DrawRectangleRounded({ escTextPosition.x - 40 , escTextPosition.y - 10, escTextSize.x + 80, escTextSize.y + 20 }, 0.3, 6, lightBlack);
 
     DrawTextEx(font, "Press E to Start", enterTextPosition, 32, 2, WHITE);
     DrawTextEx(font, "Press R to enter Chaos Mod", chaosTextPosition, 32, 2, WHITE);
@@ -49,9 +49,9 @@ void DrawUI::DrawGameOver(const Game& game)
     Vector2 chaosTextSize = MeasureTextEx(font, "Press R to enter Chaos Mod", 32, 2);
     Vector2 escTextSize = MeasureTextEx(font, "Press Esc to Exit", 32, 2);
 
-    DrawRectangleRounded({ enterTextPosition.x - 50, enterTextPosition.y - 10, enterTextSize.x + 80, enterTextSize.y + 20 }, 0.3, 6, lightBlue);
-    DrawRectangleRounded({ chaosTextPosition.x - 40, chaosTextPosition.y - 10, chaosTextSize.x + 80, chaosTextSize.y + 20 }, 0.3, 6, lightBlue);
-    DrawRectangleRounded({ escTextPosition.x - 40 , escTextPosition.y - 10, escTextSize.x + 80, escTextSize.y + 20 }, 0.3, 6, lightBlue);
+    DrawRectangleRounded({ enterTextPosition.x - 50, enterTextPosition.y - 10, enterTextSize.x + 80, enterTextSize.y + 20 }, 0.3, 6, lightBlack);
+    DrawRectangleRounded({ chaosTextPosition.x - 40, chaosTextPosition.y - 10, chaosTextSize.x + 80, chaosTextSize.y + 20 }, 0.3, 6, lightBlack);
+    DrawRectangleRounded({ escTextPosition.x - 40 , escTextPosition.y - 10, escTextSize.x + 80, escTextSize.y + 20 }, 0.3, 6, lightBlack);
 
     DrawTextEx(font, scoreText, { 255, 175 }, 38, 2, WHITE);
     DrawTextEx(font, "Press E to Restart", enterTextPosition, 32, 2, WHITE);

@@ -33,8 +33,8 @@ const Color Gold{ 255,215,0,255 };
 const Color Cream{ 255,253,208, 255 };
 const Color lightYellow{ 255,255,224,255 };
 
-
-const Color Background{ 13,44,169,255 };
+const Color lightBlack{ 60,60,60,255 };
+const Color Background{ 0,0,0,255 };
 
 
 std::vector<Color> GetCellColor()

@@ -15,7 +15,7 @@ enum ChaosEffectType {
     REVERSE_CONTROL,
     SZ_BLOCK,
     PENTRIX,
-    QUAD,
+    RAIN,
 };
 
 struct ChaosEffect {

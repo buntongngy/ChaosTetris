@@ -34,3 +34,8 @@ void Game::ReverseControl(bool isActive)
 {
 	reverseControl = isActive;
 }
+
+void Game::SetRain(bool isActive)
+{
+	isRain = isActive;
+}

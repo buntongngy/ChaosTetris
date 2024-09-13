@@ -1,6 +1,7 @@
 
 #include "ChaosEffects.h"
 #include "raylib.h"
+#include <random>
 
 
 ChaosEffects::ChaosEffects() : currentEffect(), effectEndTime(0), chaosEndTime(0) {}
@@ -40,6 +41,9 @@ void ChaosEffects::ApplyEffect(Game& game) {
         case PENTRIX:
             game.SetPentrix(true);
             break;
+        case RAIN:
+            game.SetRain(true);
+            game.SetSpeed(0.05);
         }
     }
 }
@@ -86,7 +90,10 @@ const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
         return "Reverse Control";
     case PENTRIX:
         return "Pentrix Mode";
+    case RAIN:
+        return "Rain";
     }
+ 
 }
 
 void ChaosEffects::DrawChaosEffectUI(Font font) const {
@@ -94,13 +101,13 @@ void ChaosEffects::DrawChaosEffectUI(Font font) const {
         // Draw effect name
      
             const char* effectName = GetEffectName(currentEffect);
-            DrawTextEx(font, effectName, { 600, 500 }, 26, 2, WHITE);
+            DrawTextEx(font, effectName, { 20, 500 }, 26, 2, WHITE);
 
             // Calculate remaining time
             float remainingTime = activeEffects.front().timeRemaining;
             char effectTimerText[20];
             sprintf_s(effectTimerText, "Time: %.1f", remainingTime);
-            DrawTextEx(font, effectTimerText, { 600, 550 }, 26, 2, WHITE);
+            DrawTextEx(font, effectTimerText, { 20, 550 }, 26, 2, WHITE);
         
     }
 }
@@ -143,6 +150,10 @@ void ChaosEffects::ResetEffect(Game& game) {
     case REVERSE_CONTROL:
         game.ReverseControl(false);
         break;
+    case RAIN:
+        game.SetRain(false);
+        game.SetSpeed(0.2);
+        break;
     default:
         break;
     }
@@ -161,23 +172,27 @@ void ChaosEffects::ResetEffect(Game& game) {
 }
 
 void ChaosEffects::StartRandomEffect() {
-    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 9);
-    double duration = 10.0; 
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
 
-    switch (newEffect) {
+    std::uniform_int_distribution<int> effectAmount(0, 9);
+
+    ChaosEffectType newEffect = static_cast<ChaosEffectType>(effectAmount(gen));
+    double duration = 10.0;
+    switch (newEffect)
+    {
     case SPEED_UP:
         duration = 1.0;
         break;
     case DISABLE_ROTATE: case SLOW_DOWN: case BIG_BLOCK:
         duration = 5.0;
         break;
-   
     default:
         duration = 10.0;
         break;
     }
 
-    activeEffects.push_back({ newEffect, duration, duration });
+    activeEffects.push_back({ newEffect, duration ,duration });
     currentEffect = newEffect;
     effectEndTime = GetTime() + duration;
 }
