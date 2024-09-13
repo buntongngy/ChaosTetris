@@ -20,6 +20,7 @@ Game::Game()
 	currentBlock = GetRandomBlock();
 	nextBlock = GetRandomBlock();
 	holdBlock = Block();
+
 	heldBlock = false;
 	gameOver = false;
 	canRotate = true;
@@ -82,7 +83,7 @@ Block Game::GetRandomBlock()
 	if (isRain)
 	{
 		std::vector<Block> rainBlock = { DotBlock(),CommaBlock()};
-		int index = rand() % rainBlock.size();
+		int index = rand() % rainBlock.size(); 
 		return rainBlock[index];
 	}
 
@@ -127,74 +128,6 @@ std::vector<Block> Game::GetAllBlocks()
 	}
 
 	return blocks;
-}
-
-
-
-
-
-
-void Game::HandleInput()
-{
-	int keyPress = GetKeyPressed();
-
-	if (gameOver && keyPress != 0)
-	{
-		gameOver = false;
-		Reset();
-		PlayMusicStream(music);
-	}
-
-	if (reverseControl) {
-		
-		switch (keyPress)
-		{
-		case KEY_RIGHT: 
-			MoveBlockLeft();
-			break;
-		case KEY_LEFT: 
-			MoveBlockRight();
-			break;
-		case KEY_DOWN:
-			MoveBlockDown();
-			break;
-		case KEY_SPACE:
-			DropBlock();
-			updateScore(0, 1);
-			break;
-		case KEY_UP:
-			RotateBlock();
-			break;
-		case KEY_C:
-			HoldBlock();
-			break;
-		}
-	}
-	else {
-		// Normal controls
-		switch (keyPress)
-		{
-		case KEY_LEFT:
-			MoveBlockLeft();
-			break;
-		case KEY_RIGHT:
-			MoveBlockRight();
-			break;
-		case KEY_DOWN:
-			MoveBlockDown();
-			break;
-		case KEY_SPACE:
-			DropBlock();
-			updateScore(0, 1);
-			break;
-		case KEY_UP:
-			RotateBlock();
-			break;
-		case KEY_C:
-			HoldBlock();
-			break;
-		}
-	}
 }
 
 void Game::HoldBlock()

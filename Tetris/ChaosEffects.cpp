@@ -6,6 +6,7 @@
 
 ChaosEffects::ChaosEffects() : currentEffect(), effectEndTime(0), chaosEndTime(0) {}
 
+//Apply Chaos Effect Method
 void ChaosEffects::ApplyEffect(Game& game) {
     if (IsChaosModeActive() && !IsEffectActive()) {
         StartRandomEffect();
@@ -44,10 +45,12 @@ void ChaosEffects::ApplyEffect(Game& game) {
         case RAIN:
             game.SetRain(true);
             game.SetSpeed(0.05);
+            break;
         }
     }
 }
 
+//Update the chaos timer effect methdo
 void ChaosEffects::UpdateEffect(Game& game) {
    
      
@@ -70,6 +73,7 @@ void ChaosEffects::UpdateEffect(Game& game) {
       
 }
 
+//Method to get the effect name
 const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
     switch (effect) {
     case SPEED_UP:
@@ -96,30 +100,19 @@ const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
  
 }
 
-void ChaosEffects::DrawChaosEffectUI(Font font) const {
-    if (IsEffectActive()) {
-        // Draw effect name
-     
-            const char* effectName = GetEffectName(currentEffect);
-            DrawTextEx(font, effectName, { 20, 500 }, 26, 2, WHITE);
 
-            // Calculate remaining time
-            float remainingTime = activeEffects.front().timeRemaining;
-            char effectTimerText[20];
-            sprintf_s(effectTimerText, "Time: %.1f", remainingTime);
-            DrawTextEx(font, effectTimerText, { 20, 550 }, 26, 2, WHITE);
-        
-    }
-}
 
+//Check if there is an active effect
 bool ChaosEffects::IsEffectActive() const {
     return !activeEffects.empty();
 }
 
+//Check if the the chaos effect duration is over
 bool ChaosEffects::IsChaosModeActive() const {
     return GetTime() < chaosEndTime;
 }
 
+//Reset method that reset the effect when the effect duration is end
 void ChaosEffects::ResetEffect(Game& game) {
     switch (currentEffect) {
     case SPEED_UP:
@@ -171,6 +164,7 @@ void ChaosEffects::ResetEffect(Game& game) {
     }
 }
 
+//Method that start a random effect
 void ChaosEffects::StartRandomEffect() {
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -197,6 +191,7 @@ void ChaosEffects::StartRandomEffect() {
     effectEndTime = GetTime() + duration;
 }
 
+//Method that handle chaos effect count down
 void ChaosEffects::StartChaosMode(double duration) {
     chaosEndTime = GetTime() + duration;
 }

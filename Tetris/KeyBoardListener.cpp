@@ -4,6 +4,68 @@
 #include <random>
 #include <iostream>
 
+void Game::HandleInput()
+{
+	int keyPress = GetKeyPressed();
+
+	if (gameOver && keyPress != 0)
+	{
+		gameOver = false;
+		Reset();
+		PlayMusicStream(music);
+	}
+
+	if (reverseControl) {
+
+		switch (keyPress)
+		{
+		case KEY_RIGHT:
+			MoveBlockLeft();
+			break;
+		case KEY_LEFT:
+			MoveBlockRight();
+			break;
+		case KEY_DOWN:
+			MoveBlockDown();
+			break;
+		case KEY_SPACE:
+			DropBlock();
+			updateScore(0, 1);
+			break;
+		case KEY_UP:
+			RotateBlock();
+			break;
+		case KEY_C:
+			HoldBlock();
+			break;
+		}
+	}
+	else {
+		// Normal controls
+		switch (keyPress)
+		{
+		case KEY_LEFT:
+			MoveBlockLeft();
+			break;
+		case KEY_RIGHT:
+			MoveBlockRight();
+			break;
+		case KEY_DOWN:
+			MoveBlockDown();
+			break;
+		case KEY_SPACE:
+			DropBlock();
+			updateScore(0, 1);
+			break;
+		case KEY_UP:
+			RotateBlock();
+			break;
+		case KEY_C:
+			HoldBlock();
+			break;
+		}
+	}
+}
 
 void Game::MoveBlockLeft()
 {
