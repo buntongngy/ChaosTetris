@@ -8,8 +8,6 @@
 
 ChaosEffects chaosEffects;
 
-
-
 double chaosTimer = 10;
 double lastUpdateTime = GetTime();
 
@@ -82,7 +80,6 @@ void UpdateChaosMode(Game& game) {
     static double chaosLastUpdateTime = GetTime();
     double currentTime = GetTime();
 
-    
     chaosTimer -= (currentTime - chaosLastUpdateTime);
     chaosLastUpdateTime = currentTime;
 
@@ -101,9 +98,6 @@ void ResetChaosMod(Game& game) {
     chaosEffects.ResetEffect(game);
     chaosTimer = 10;
 }
-
-
-
 
 int main() {
 
@@ -143,7 +137,6 @@ int main() {
 
             UpdateChaosMode(game);
         }
-
 
         // Draw Interface
         BeginDrawing();

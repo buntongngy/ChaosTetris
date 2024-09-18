@@ -35,7 +35,7 @@ public:
 	{
 		id = 10;
 		cells[0] = { Position(0,1) };
-		Move(0, 4);
+		Move(0, 5);
 	}
 };
 
@@ -47,7 +47,7 @@ public:
 		id = 11;
 		cells[0] = { Position(0,1), Position(1,1) };
 		cells[1] = { Position(0,0), Position(0,1) };
-		Move(0, 4);
+		Move(0, 5);
 	}
 };
 

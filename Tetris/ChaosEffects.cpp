@@ -89,9 +89,9 @@ const char* ChaosEffects::GetEffectName(ChaosEffectType effect) const {
     case LINE_BLOCK:
         return "LINE BLOCK!!!";
     case SZ_BLOCK:
-        return "S & Z Block Only";
+        return "ZigZag";
     case REVERSE_CONTROL:
-        return "Reverse Control";
+        return "Swap Control";
     case PENTRIX:
         return "Pentrix Mode";
     case RAIN:
@@ -166,12 +166,9 @@ void ChaosEffects::ResetEffect(Game& game) {
 
 //Method that start a random effect
 void ChaosEffects::StartRandomEffect() {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
+  
 
-    std::uniform_int_distribution<int> effectAmount(0, 9);
-
-    ChaosEffectType newEffect = static_cast<ChaosEffectType>(effectAmount(gen));
+    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 9);
     double duration = 10.0;
     switch (newEffect)
     {
@@ -182,7 +179,6 @@ void ChaosEffects::StartRandomEffect() {
         duration = 5.0;
         break;
     default:
-        duration = 10.0;
         break;
     }
 

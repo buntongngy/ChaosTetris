@@ -9,6 +9,10 @@ public:
 	~Game();
 	
 	int score;
+	static double chaosTimer;
+	double GetSpeed() const {
+		return speed;
+	}
 
 	void Draw();
 	void HandleInput();
@@ -24,10 +28,6 @@ public:
 	void SetPentrix(bool isActive);
 	void SetRain(bool isActive);
 	void ReverseControl(bool isActive);
-
-	double GetSpeed() const {
-		return speed;
-	}
 
 	bool gameOver;
 	bool heldBlock;
@@ -51,7 +51,7 @@ public:
 
 	Music music;
 
-	static double chaosTimer;
+	
 
 private:
 	double lockDelay = 0.05;
@@ -60,14 +60,11 @@ private:
 	int moveCounter = 0;
 	int moveLimit = 5;
 
-	Grid grid;
-
 	void MoveBlockLeft();
 	void MoveBlockRight();
 	void HoldBlockOffSet();
 	void RotateBlock();
 	void LockBlock();
-	
 
 	bool isOutofBound();
 	bool BlockFits();
@@ -75,7 +72,7 @@ private:
 
 	std::vector<Block> blocks;
 
-
+	Grid grid;
 
 	Sound rotateSound;
 	Sound clearSound;

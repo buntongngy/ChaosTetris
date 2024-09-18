@@ -4,7 +4,6 @@
 #include "GameState.h"
 #include "ChaosEffects.h"
 
-
 Game DrawUI::game()
 {
     return Game();

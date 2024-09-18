@@ -130,8 +130,6 @@ void Game::MoveBlockDown() {
 	}
 }
 
-
-
 void Game::DropBlock() {
 	if (!gameOver && canDrop) {
 
@@ -152,8 +150,6 @@ void Game::DropBlock() {
 
 	}
 }
-
-
 void Game::RotateBlock()
 {
 	if (!gameOver && canRotate)

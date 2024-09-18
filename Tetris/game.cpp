@@ -7,7 +7,7 @@
 #include <ctime>
 
 
-
+//Game constructor
 Game::Game()
 {
 	
@@ -37,6 +37,7 @@ Game::Game()
 	gameOverSound = LoadSound("Sound/Game_Over.mp3");
 }
 
+//Game Deconstructor
 Game::~Game()
 {
 	UnloadSound(rotateSound);
@@ -47,7 +48,7 @@ Game::~Game()
 
 
 
-
+//Get random block for normal mode, chaos mode, and all the chaos effects
 Block Game::GetRandomBlock()
 {
 	canHold = true;
@@ -98,7 +99,7 @@ Block Game::GetRandomBlock()
 	return block;
 }
 
-
+//Method to get All block in the game
 std::vector<Block> Game::GetAllBlocks()
 {
 	std::vector<Block> blocks;
@@ -130,6 +131,7 @@ std::vector<Block> Game::GetAllBlocks()
 	return blocks;
 }
 
+//Hold Block method
 void Game::HoldBlock()
 {
 	
@@ -210,6 +212,7 @@ void Game::updateScore(int lineClear, int movePoint)
 	score += movePoint;
 }
 
+//Method that check if the block is fit in a line
 bool Game::BlockFits()
 {
 	std::vector<Position> tiles = currentBlock.GetCellPosition();
@@ -223,6 +226,7 @@ bool Game::BlockFits()
 	return true;
 }
 
+//Lock block method
 void Game::LockBlock()
 {
 	std::vector<Position> tiles = currentBlock.GetCellPosition();
@@ -252,9 +256,10 @@ void Game::LockBlock()
 	
 }
 
+//Reset Method 
 void Game::Reset()
 {
-	
+
 	grid.Initialize();
 	blocks = GetAllBlocks();
 	currentBlock = GetRandomBlock();
@@ -263,7 +268,7 @@ void Game::Reset()
 	holdBlock = Block();
 	heldBlock = false;
 	canHold = true;
-	
+
 	score = 0;
 	StopMusicStream(music);
 }

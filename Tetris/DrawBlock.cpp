@@ -27,10 +27,10 @@ void Game::Draw()
 		nextBlock.Draw(540, 210, false);
 		break;
 	case 10:
-		nextBlock.Draw(525, 245, false);
+		nextBlock.Draw(490, 245, false);
 		break;
 	case 11:
-		nextBlock.Draw(530, 230, false);
+		nextBlock.Draw(495, 230, false);
 		break;
 	case 19:
 		nextBlock.Draw(520, 210, false);
@@ -65,7 +65,7 @@ void Game::HoldBlockOffSet()
 
 
 	case 10:
-		holdBlock.rowOffSet = 3;
+		holdBlock.rowOffSet = 2;
 		holdBlock.colOffSet = 3;
 		break;
 
