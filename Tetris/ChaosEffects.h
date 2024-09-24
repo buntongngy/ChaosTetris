@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include <vector>
+#include <random>
 
 enum ChaosEffectType {
     SPEED_UP,
@@ -16,6 +17,7 @@ enum ChaosEffectType {
     SZ_BLOCK,
     PENTRIX,
     RAIN,
+    MAX_EFFECT,
 };
 
 struct ChaosEffect {
@@ -28,6 +30,8 @@ class ChaosEffects {
 public:
     ChaosEffects();
     ChaosEffectType currentEffect;
+
+ 
 
     const char* GetEffectName(ChaosEffectType effect) const;
 
@@ -42,6 +46,7 @@ public:
     bool IsChaosModeActive() const;
 
 private:
+    std::default_random_engine randomEngine;
     std::vector<ChaosEffect> activeEffects;
     double effectEndTime;
     double chaosEndTime; 

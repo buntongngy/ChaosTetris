@@ -9,6 +9,7 @@ public:
 	~Game();
 	
 	int score;
+	
 	static double chaosTimer;
 	double GetSpeed() const {
 		return speed;

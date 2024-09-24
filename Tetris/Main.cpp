@@ -29,11 +29,13 @@ void DrawGame(Font font, Game& game, bool isChaosMode)
     DrawTextEx(font, "Score", { 600, 15 }, 38, 2, WHITE);
     DrawTextEx(font, "Next", { 600, 125 }, 38, 2, WHITE);
     DrawTextEx(font, "Hold", { 50, 15 }, 38, 2, WHITE);
+    DrawTextEx(font, "Line Clear:", { 600, 400 }, 30, 2, WHITE);
 
     DrawRectangleRounded({ 600,55,170, 60 }, 0.3, 6, lightBlack);
 
     char scoreText[10];
     sprintf_s(scoreText, "%d", game.score);
+ //   sprintf_s(scoreText, "%d", game.clearLine);
     Vector2 textSize = MeasureTextEx(font, scoreText, 38, 2);
 
     DrawTextEx(font, scoreText, { 620, 65 }, 38, 2, WHITE);
@@ -112,7 +114,10 @@ int main() {
 
     while (WindowShouldClose() == false) {
 
-        if (gameState == GAME )
+        int mouseX = GetMouseX();
+        int mouseY = GetMouseY();
+     
+        if (gameState == GAME ) 
         {
             UpdateMusicStream(game.music);
             game.HandleInput();
@@ -175,35 +180,55 @@ int main() {
 
         if (gameState == MENU)
         {
-            if (IsKeyPressed(KEY_E)) {
-                gameState = GAME;
-                game.Reset();
-                PlayMusicStream(game.music);
+            if ( mouseX >= 210 && mouseX <= 600 && mouseY >= 290 && mouseY <= 350) {
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+                {
+                    gameState = GAME;
+                    game.Reset();
+                    PlayMusicStream(game.music);
+                }
             }
-            else if (IsKeyPressed(KEY_R))
+            else if (mouseX >= 60 && mouseX <= 600 && mouseY >= 380 && mouseY <= 430)
             {
-                gameState = CHAOS_MOD;
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+                {
+                    gameState = CHAOS_MOD;
+                }
             }
-            else if (IsKeyPressed(KEY_ESCAPE)) {
-                break;
+            else if (mouseX >= 210 && mouseX <= 600 && mouseY >= 470 && mouseY <= 520) {
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+                {
+                    break;
+                }
             }
         }
         else if (gameState == GAME_OVER)
         {
-            if (IsKeyPressed(KEY_E)) {
-                gameState = GAME;
-                game.Reset();
-                PlayMusicStream(game.music);
-            }
-            else if (IsKeyPressed(KEY_R))
+            if (mouseX >= 210 && mouseX <= 600 && mouseY >= 290 && mouseY <= 350)
             {
-                gameState = CHAOS_MOD;
-                game.Reset();
-                ResetChaosMod(game);
-                PlayMusicStream(game.music);
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    gameState = GAME;
+                    game.Reset();
+                    game.gameOver = false;
+                    PlayMusicStream(game.music);
+                }
             }
-            else if (IsKeyPressed(KEY_ESCAPE)) {
-                break;
+            else if (mouseX >= 60 && mouseX <= 600 && mouseY >= 380 && mouseY <= 430)
+            {
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+                {
+                    gameState = CHAOS_MOD;
+                    game.Reset();
+                    ResetChaosMod(game);
+                    game.gameOver = false;
+                    PlayMusicStream(game.music);
+                }
+            }
+            else if (mouseX >= 210 && mouseX <= 600 && mouseY >= 470 && mouseY <= 520)
+            {
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    break;
+                }
             }
         }
 

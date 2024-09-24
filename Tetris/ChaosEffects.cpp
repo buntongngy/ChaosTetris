@@ -2,9 +2,14 @@
 #include "ChaosEffects.h"
 #include "raylib.h"
 #include <random>
+#include <chrono>
 
 
-ChaosEffects::ChaosEffects() : currentEffect(), effectEndTime(0), chaosEndTime(0) {}
+ChaosEffects::ChaosEffects() : currentEffect(), effectEndTime(0), chaosEndTime(0) 
+{
+    std::random_device rd;
+    randomEngine.seed(rd());
+}
 
 //Apply Chaos Effect Method
 void ChaosEffects::ApplyEffect(Game& game) {
@@ -166,9 +171,14 @@ void ChaosEffects::ResetEffect(Game& game) {
 
 //Method that start a random effect
 void ChaosEffects::StartRandomEffect() {
-  
+    
+    std::uniform_int_distribution<int> dist(0, static_cast<int>(ChaosEffectType::MAX_EFFECT) - 1);
 
-    ChaosEffectType newEffect = static_cast<ChaosEffectType>(rand() % 9);
+    ChaosEffectType newEffect;
+    do
+    {
+        newEffect = static_cast<ChaosEffectType>(dist(randomEngine));
+    } while (newEffect == currentEffect);
     double duration = 10.0;
     switch (newEffect)
     {
